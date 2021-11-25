@@ -13,7 +13,7 @@ const Stack = createStackNavigator();
 export const StackNavigator = () => {
   const {status} = useContext(AuthContext);
 
-  if (status === 'checking') return <LoadingScreen />;
+  // if (status === 'checking') return <LoadingScreen />;
 
   return (
     <Stack.Navigator

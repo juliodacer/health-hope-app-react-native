@@ -8,7 +8,11 @@ import {StackNavigator} from './src/navigator/StackNavigator';
 // };
 
 const AppState = ({children}: any) => {
-  return <AuthProvider>{children}</AuthProvider>;
+  return (
+    <AuthProvider>
+      {children}
+    </AuthProvider>
+  );
 };
 
 const App = () => {

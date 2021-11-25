@@ -30,8 +30,7 @@ export const LoginScreen = ({navigation}: Props) => {
 
   const {email, password, onChange} = useForm({
     email: '',
-    password: '',
-    secureTextEntry: true,
+    password: ''
   });
 
   useEffect(() => {

@@ -17,4 +17,5 @@ export interface User {
     status:   boolean;
     google:   boolean;
     uid:      string;
+    img?:     string;
 }
