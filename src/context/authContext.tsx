@@ -60,13 +60,13 @@ export const AuthProvider = ({children}: any) => {
         password,
       });
 
-      // dispatch({
-      //   type: 'signUp',
-      //   payload: {
-      //     token: data.token,
-      //     user: data.user,
-      //   },
-      // });
+      dispatch({
+        type: 'signUp',
+        payload: {
+          token: data.token,
+          user: data.user,
+        },
+      });
 
       console.log(data)
       // await AsyncStorage.setItem('token', data.token);
