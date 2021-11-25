@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
+import { colors } from '../../theme/colors';
 
 const {height} = Dimensions.get("screen");
 const height_logo = height * 0.28;
@@ -26,13 +27,13 @@ export const styles = StyleSheet.create({
       height: height_logo
   },
   title: {
-      color: '#05375a',
+      color: colors.blue,
       fontSize: 30,
       fontWeight: 'bold'
   },
   text: {
       fontSize: 18,
-      color: 'grey',
+      color: colors.gray,
       marginTop:5
   },
   button: {
@@ -48,6 +49,6 @@ export const styles = StyleSheet.create({
       flexDirection: 'row'
   },
   textSign: {
-      color: 'white',
+      color: colors.white,
       fontWeight: 'bold'
   }});

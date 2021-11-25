@@ -1,9 +1,10 @@
 import {Dimensions, StyleSheet} from 'react-native';
+import { colors } from './colors';
 
 export const stylesTheme = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#009387',
+    backgroundColor: colors.primary,
   },
   header: {
     flex: 1,
@@ -12,12 +13,13 @@ export const stylesTheme = StyleSheet.create({
     paddingBottom: 50,
   },
   text_header: {
-    color: '#fff',
+    color: colors.white,
     fontWeight: 'bold',
     fontSize: 30,
   },
   text_footer: {
-    color: '#05375a',
+    // color: '#05375a',
+    color: 'green',
     fontSize: 18,
   },
   action: {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -6,27 +6,43 @@ import {
   TextInput,
   ScrollView,
   StatusBar,
+  Keyboard,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import Feather from 'react-native-vector-icons/Feather';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { useNavigation } from '@react-navigation/core';
-import { styles } from './styles';
-import { ButtonGradient } from '../../components/ButtonGradient/ButtonGradient';
-import { Button } from '../../components/Button/Button';
+import {useNavigation} from '@react-navigation/core';
+import {styles} from './styles';
+import {ButtonGradient} from '../../components/ButtonGradient/ButtonGradient';
+import {Button} from '../../components/Button/Button';
+import {useForm} from '../../hooks/useForm';
+import {StackScreenProps} from '@react-navigation/stack';
+import {colors} from '../../theme/colors';
 
-export const RegisterScreen = () => {
-  const [data, setData] = React.useState({
-    username: '',
+interface Props extends StackScreenProps<any, any> {}
+
+export const RegisterScreen = ({navigation}: Props) => {
+  const {email, password, name, onChange} = useForm({
+    name: '',
+    email: '',
     password: '',
-    confirm_password: '',
-    check_textInputChange: false,
-    secureTextEntry: true,
-    confirm_secureTextEntry: true,
   });
 
-  const navigation = useNavigation();
+  const onRegister = () => {
+    console.log({email, password, name});
+    Keyboard.dismiss();
+  };
+
+  // const [data, setData] = useState({
+  //   name: '',
+  //   email: '',
+  //   password: '',
+  //   check_textInputChange: false,
+  //   secureTextEntry: true,
+  //   isValidUser: true,
+  //   isValidPassword: true,
+  // });
 
   // const textInputChange = (val) => {
   //     if( val.length !== 0 ) {
@@ -73,110 +89,136 @@ export const RegisterScreen = () => {
   // }
 
   return (
-    <View style={styles.container}>
-      <StatusBar backgroundColor="#009387" barStyle="light-content" />
-      <View style={styles.header}>
-        <Text style={styles.text_header}>Registrar</Text>
+    <>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.text_header}>Registrar</Text>
+        </View>
+        <Animatable.View animation="fadeInUpBig" style={styles.footer}>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            {/* Name */}
+            <Text style={styles.text_footer}>Nombre</Text>
+            <View style={styles.action}>
+              <AntDesign name="user" color="#05375a" size={20} />
+              <TextInput
+                placeholder="Ingrese su nombre"
+                style={styles.textInput}
+                autoCapitalize="words"
+                autoCorrect={false}
+                onChangeText={value => onChange(value, 'name')}
+                value={name}
+                onSubmitEditing={onRegister}
+              />
+              {/* {data.check_textInputChange ? (
+                <Animatable.View animation="bounceIn">
+                  <AntDesign name="check-circle" color="green" size={20} />
+                </Animatable.View>
+              ) : null} */}
+            </View>
+
+            <Text
+              style={[
+                styles.text_footer,
+                {
+                  marginTop: 20,
+                },
+              ]}>
+              Correo
+            </Text>
+            <View style={styles.action}>
+              <AntDesign name="mail" color={colors.blue} size={20} />
+              <TextInput
+                placeholder="Ingrese su correo"
+                style={styles.textInput}
+                autoCapitalize="none"
+                autoCorrect={false}
+                onSubmitEditing={onRegister}
+                // onChangeText={(val) => textInputChange(val)}
+              />
+              {/* {data.check_textInputChange ? (
+                <Animatable.View animation="bounceIn">
+                  <AntDesign name="check-circle" color="green" size={20} />
+                </Animatable.View>
+              ) : null} */}
+            </View>
+
+            <Text
+              style={[
+                styles.text_footer,
+                {
+                  marginTop: 20,
+                },
+              ]}>
+              Contraseña
+            </Text>
+            <View style={styles.action}>
+              <AntDesign name="lock" color={colors.blue} size={20} />
+              <TextInput
+                placeholder="Escriba su contraseña"
+                // secureTextEntry={data.secureTextEntry ? true : false}
+                secureTextEntry={true}
+                style={styles.textInput}
+                autoCapitalize="none"
+                autoCorrect={false}
+                onSubmitEditing={onRegister}
+                // onChangeText={(val) => handlePasswordChange(val)}
+              />
+              {/*
+              <TouchableOpacity
+              // onPress={updateSecureTextEntry}
+              >
+                
+                 {data.secureTextEntry ? (
+                  <Feather name="eye-off" color="grey" size={20} />
+                ) : (
+                  <Feather name="eye" color="grey" size={20} />
+                )} 
+              </TouchableOpacity>
+              */}
+            </View>
+
+            <Text
+              style={[
+                styles.text_footer,
+                {
+                  marginTop: 20,
+                },
+              ]}>
+              Confirmar Contraseña
+            </Text>
+            <View style={styles.action}>
+              <AntDesign name="lock" color="#05375a" size={20} />
+              <TextInput
+                placeholder="Confirme su contraseña"
+                secureTextEntry={true}
+                style={styles.textInput}
+                autoCapitalize="none"
+                autoCorrect={false}
+                onSubmitEditing={onRegister}
+                // onChangeText={(val) => handleConfirmPasswordChange(val)}
+              />
+              {/* <TouchableOpacity
+              // onPress={updateConfirmSecureTextEntry}
+              >
+                {data.secureTextEntry ? (
+                  <Feather name="eye-off" color="grey" size={20} />
+                ) : (
+                  <Feather name="eye" color="grey" size={20} />
+                )}
+              </TouchableOpacity> */}
+            </View>
+
+            {/* Buttons */}
+            <View style={styles.button}>
+              <ButtonGradient title="Registrar" />
+              <Button
+                title="Iniciar Sesión"
+                onPress={() => navigation.replace('LoginScreen')}
+              />
+            </View>
+          </ScrollView>
+        </Animatable.View>
       </View>
-      <Animatable.View animation="fadeInUpBig" style={styles.footer}>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <Text style={styles.text_footer}>Usuario</Text>
-          <View style={styles.action}>
-            <AntDesign name="user" color="#05375a" size={20} />
-            <TextInput
-              placeholder="ingrese su usuario"
-              style={styles.textInput}
-              autoCapitalize="none"
-              // onChangeText={(val) => textInputChange(val)}
-            />
-            {data.check_textInputChange ? (
-              <Animatable.View animation="bounceIn">
-                <AntDesign name="check-circle" color="green" size={20} />
-              </Animatable.View>
-            ) : null}
-          </View>
-
-          <Text
-            style={[
-              styles.text_footer,
-              {
-                marginTop: 35,
-              },
-            ]}>
-            Contraseña
-          </Text>
-          <View style={styles.action}>
-            <AntDesign name="key" color="#05375a" size={20} />
-            <TextInput
-              placeholder="escriba su contraseña"
-              secureTextEntry={data.secureTextEntry ? true : false}
-              style={styles.textInput}
-              autoCapitalize="none"
-              // onChangeText={(val) => handlePasswordChange(val)}
-            />
-            <TouchableOpacity
-            // onPress={updateSecureTextEntry}
-            >
-              {data.secureTextEntry ? (
-                <Feather name="eye-off" color="grey" size={20} />
-              ) : (
-                <Feather name="eye" color="grey" size={20} />
-              )}
-            </TouchableOpacity>
-          </View>
-
-          <Text
-            style={[
-              styles.text_footer,
-              {
-                marginTop: 35,
-              },
-            ]}>
-            Confirmar Contraseña
-          </Text>
-          <View style={styles.action}>
-            <AntDesign name="key" color="#05375a" size={20} />
-            <TextInput
-              placeholder="Confirme su contraseña"
-              secureTextEntry={data.confirm_secureTextEntry ? true : false}
-              style={styles.textInput}
-              autoCapitalize="none"
-              // onChangeText={(val) => handleConfirmPasswordChange(val)}
-            />
-            <TouchableOpacity
-            // onPress={updateConfirmSecureTextEntry}
-            >
-              {data.secureTextEntry ? (
-                <Feather name="eye-off" color="grey" size={20} />
-              ) : (
-                <Feather name="eye" color="grey" size={20} />
-              )}
-            </TouchableOpacity>
-          </View>
-          <View style={styles.textPrivate}>
-            <Text style={styles.color_textPrivate}>
-              By signing up you agree to our
-            </Text>
-            <Text style={[styles.color_textPrivate, {fontWeight: 'bold'}]}>
-              {' '}
-              Terms of service
-            </Text>
-            <Text style={styles.color_textPrivate}> and</Text>
-            <Text style={[styles.color_textPrivate, {fontWeight: 'bold'}]}>
-              {' '}
-              Privacy policy
-            </Text>
-          </View>
-
-          {/* Buttons */}
-          <View style={styles.button}>
-            <ButtonGradient title="Registrar" />
-            <Button title="Iniciar Sesión" onPress={() => navigation.goBack()} />
-          </View>
-          
-        </ScrollView>
-      </Animatable.View>
-    </View>
+    </>
   );
 };
-
