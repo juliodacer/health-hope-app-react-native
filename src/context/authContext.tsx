@@ -72,10 +72,10 @@ export const AuthProvider = ({children}: any) => {
       // await AsyncStorage.setItem('token', data.token);
     } catch (err: any) {
       console.log(err.response.data.msg);
-      // dispatch({
-      //   type: 'addError',
-      //   payload: err.response.data.msg || 'Información incorrecta',
-      // });
+      dispatch({
+        type: 'addError',
+        payload: err.response.data.msg || 'Información incorrecta'
+      });
     }
   };
 
@@ -84,7 +84,7 @@ export const AuthProvider = ({children}: any) => {
   const logOut = () => {};
 
   const removeError = () => {
-    // dispatch({type: 'removeError'});
+    dispatch({type: 'removeError'});
   };
 
   return (

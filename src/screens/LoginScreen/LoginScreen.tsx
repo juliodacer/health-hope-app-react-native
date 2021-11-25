@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import Feather from 'react-native-vector-icons/Feather';
 
 import {stylesTheme} from '../../theme/styles';
 
@@ -37,7 +36,7 @@ export const LoginScreen = ({navigation}: Props) => {
     if (errorMessage.length === 0) return;
     Alert.alert('Login incorrecto', errorMessage, [
       {
-        text: 'Ok!',
+        text: 'Ok',
         onPress: removeError,
       },
     ]);
