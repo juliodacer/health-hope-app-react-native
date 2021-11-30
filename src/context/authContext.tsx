@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {createContext, useEffect, useReducer} from 'react';
 import healthHopeAPI from '../api/healthHopeAPI';
-import {LoginData, LoginResponse, User} from '../interfaces/appInterfaces';
+import { LoginData, LoginResponse, User, RegisterData } from '../interfaces/appInterfaces';
 import {authReducer, AuthState} from './authReducer';
 
 type AuthContextProps = {
@@ -10,7 +10,7 @@ type AuthContextProps = {
   user: User | null;
   status: 'checking' | 'authenticated' | 'not-authenticated';
   signIn: (loginData: LoginData) => void;
-  singUp: () => void;
+  signUp: (registerData :RegisterData) => void;
   logOut: () => void;
   removeError: () => void;
 };
@@ -79,9 +79,38 @@ export const AuthProvider = ({children}: any) => {
     }
   };
 
-  const singUp = () => {};
+  const signUp = async ({name, email, password, role}: RegisterData) => {
+    try {
+      const {data} = await healthHopeAPI.post<LoginResponse>('/users', {
+        name,
+        email,
+        password,
+        role
+      });
 
-  const logOut = () => {};
+      dispatch({
+        type: 'signUp',
+        payload: {
+          token: data.token,
+          user: data.user,
+        },
+      });
+
+      console.log(data)
+      // await AsyncStorage.setItem('token', data.token);
+    } catch (err: any) {
+      console.log(err.response.data);
+      dispatch({
+        type: 'addError',
+        payload: err.response.data.errors[0].msg || 'Información incorrecta'
+      });
+    }
+  };
+
+  const logOut = async () => {
+    await AsyncStorage.removeItem('token');
+    dispatch({type: 'logout'});
+  };
 
   const removeError = () => {
     dispatch({type: 'removeError'});
@@ -92,7 +121,7 @@ export const AuthProvider = ({children}: any) => {
       value={{
         ...state,
         signIn,
-        singUp,
+        signUp,
         logOut,
         removeError,
       }}>

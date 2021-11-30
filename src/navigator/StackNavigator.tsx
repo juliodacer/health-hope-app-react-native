@@ -5,13 +5,19 @@ import {RegisterScreen} from '../screens/RegisterScreen/RegisterScreen';
 import {SplashScreen} from '../screens/SplashScreen/SplashScreen';
 import {colors} from '../theme/colors';
 import {AuthContext} from '../context/authContext';
-import {HomeScreen} from '../screens/HomeScreen/Home';
+
+import {HomeUserScreen} from '../screens/HomeScreen/HomeUserScreen';
+import {HomeAdminScreen} from '../screens/HomeScreen/HomeAdminScreen';
+import { HomeMedicalScreen } from '../screens/HomeScreen/HomeMedicalScreen';
+
 import {LoadingScreen} from '../screens/LoadingScreen/LoadingScreen';
+import {HabitsNavigator} from './HabitsNavigator';
+
 
 const Stack = createStackNavigator();
 
 export const StackNavigator = () => {
-  const {status} = useContext(AuthContext);
+  const {status, user} = useContext(AuthContext);
 
   // if (status === 'checking') return <LoadingScreen />;
 
@@ -29,9 +35,24 @@ export const StackNavigator = () => {
           <Stack.Screen name="LoginScreen" component={LoginScreen} />
           <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
         </>
+      ) : user?.role === 'ADMIN_ROLE' ? (
+        <>
+        <Stack.Screen name="HomeAdminScreen" component={HomeAdminScreen} />
+        <Stack.Screen name="HabitsNavigator" component={HabitsNavigator} />
+        
+        </>
+      ) : user?.role === 'USER_ROLE' ? (
+        <>
+          <Stack.Screen name="HabitsNavigator" component={HabitsNavigator} />
+          <Stack.Screen name="HomeUserScreen" component={HomeUserScreen} />
+        </>
       ) : (
-        <Stack.Screen name="HomeScreen" component={HomeScreen} />
-      )}
+        <>
+        {/* <Stack.Screen name="HabitsNavigator" component={HabitsNavigator} /> */}
+        <Stack.Screen name="HomeMedicalScreen" component={HomeMedicalScreen} />
+      </>
+      )
+    }
     </Stack.Navigator>
   );
 };

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -7,31 +7,54 @@ import {
   ScrollView,
   StatusBar,
   Keyboard,
+  Alert,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import LinearGradient from 'react-native-linear-gradient';
-import Feather from 'react-native-vector-icons/Feather';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {useNavigation} from '@react-navigation/core';
 import {styles} from './styles';
+import {AuthContext} from '../../context/authContext';
 import {ButtonGradient} from '../../components/ButtonGradient/ButtonGradient';
 import {Button} from '../../components/Button/Button';
 import {useForm} from '../../hooks/useForm';
 import {StackScreenProps} from '@react-navigation/stack';
 import {colors} from '../../theme/colors';
+import {Picker} from '@react-native-picker/picker';
 
 interface Props extends StackScreenProps<any, any> {}
 
 export const RegisterScreen = ({navigation}: Props) => {
-  const {email, password, name, onChange} = useForm({
+  // const [selectedItem, setSelectedItem] = useState('');
+
+  const {signUp, errorMessage, removeError} = useContext(AuthContext);
+
+  const {email, password, name, role, onChange} = useForm({
     name: '',
     email: '',
     password: '',
+    role: '',
+  });
+
+  useEffect(() => {
+    if (errorMessage.length === 0) return;
+
+    Alert.alert('Registro incorrecto', errorMessage, [
+      {
+        text: 'Ok',
+        onPress: removeError,
+      },
+    ]);
   });
 
   const onRegister = () => {
-    console.log({email, password, name});
+    console.log({email, password, name, role});
     Keyboard.dismiss();
+    signUp({
+      email,
+      name,
+      password,
+      role,
+    });
   };
 
   // const [data, setData] = useState({
@@ -96,10 +119,20 @@ export const RegisterScreen = ({navigation}: Props) => {
         </View>
         <Animatable.View animation="fadeInUpBig" style={styles.footer}>
           <ScrollView showsVerticalScrollIndicator={false}>
-            {/* Name */}
+            <Text style={styles.text_footer}>Tipo de usuario</Text>
+            <Picker
+              selectedValue={role}
+              onValueChange={(value) =>
+                onChange( value, 'role')
+              }>
+              <Picker.Item label={'Paciente'} value={'USER_ROLE'} />
+              <Picker.Item label={'Médico'} value={'MEDICAL_ROLE'} />
+            </Picker>
+
+            {/* Nombre */}
             <Text style={styles.text_footer}>Nombre</Text>
             <View style={styles.action}>
-              <AntDesign name="user" color="#05375a" size={20} />
+              <AntDesign name="user" color={colors.blue} size={20} />
               <TextInput
                 placeholder="Ingrese su nombre"
                 style={styles.textInput}
@@ -132,6 +165,8 @@ export const RegisterScreen = ({navigation}: Props) => {
                 style={styles.textInput}
                 autoCapitalize="none"
                 autoCorrect={false}
+                onChangeText={value => onChange(value, 'email')}
+                value={email}
                 onSubmitEditing={onRegister}
                 // onChangeText={(val) => textInputChange(val)}
               />
@@ -142,6 +177,7 @@ export const RegisterScreen = ({navigation}: Props) => {
               ) : null} */}
             </View>
 
+            {/* Contraseña */}
             <Text
               style={[
                 styles.text_footer,
@@ -160,6 +196,8 @@ export const RegisterScreen = ({navigation}: Props) => {
                 style={styles.textInput}
                 autoCapitalize="none"
                 autoCorrect={false}
+                onChangeText={value => onChange(value, 'password')}
+                value={password}
                 onSubmitEditing={onRegister}
                 // onChangeText={(val) => handlePasswordChange(val)}
               />
@@ -177,6 +215,8 @@ export const RegisterScreen = ({navigation}: Props) => {
               */}
             </View>
 
+            {/* Repetir contraseña */}
+
             <Text
               style={[
                 styles.text_footer,
@@ -187,7 +227,7 @@ export const RegisterScreen = ({navigation}: Props) => {
               Confirmar Contraseña
             </Text>
             <View style={styles.action}>
-              <AntDesign name="lock" color="#05375a" size={20} />
+              <AntDesign name="lock" color={colors.blue} size={20} />
               <TextInput
                 placeholder="Confirme su contraseña"
                 secureTextEntry={true}
@@ -210,7 +250,10 @@ export const RegisterScreen = ({navigation}: Props) => {
 
             {/* Buttons */}
             <View style={styles.button}>
-              <ButtonGradient title="Registrar" />
+              {/* Boton Registrar */}
+              <ButtonGradient title="Registrar" onPress={onRegister} />
+
+              {/* Boton Login */}
               <Button
                 title="Iniciar Sesión"
                 onPress={() => navigation.replace('LoginScreen')}
