@@ -10,21 +10,32 @@ interface Props {
 }
 
 export const CardUser = ({user, onPress}: Props) => {
-  const {name, email} = user;
+  const {name, occupation, gender, age} = user;
+
+  const avatarFemale = '../../assets/avatar-female.png';
+  const avatarMale = '../../assets/avatar-male.png';
 
   return (
     <TouchableOpacity style={styles.card} activeOpacity={0.8} onPress={onPress}>
       <Image
-        source={{
-          uri: 'https://images.pexels.com/photos/347134/pexels-photo-347134.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-        }}
+        source={
+          gender === 'FEMALE' ? require(avatarFemale) : require(avatarMale)
+        }
         resizeMode="cover"
         style={styles.cardImg}
       />
       <View>
         <Text style={styles.cardTitle}>{name}</Text>
-        <Text style={styles.cardDetails}>{email}</Text>
-        <View style={{height: 25, width: 70, backgroundColor: colors.primary, justifyContent: 'center', alignItems: 'center', borderRadius: 100}}>
+        <Text style={styles.cardDetails}>Medico</Text>
+        <View
+          style={{
+            height: 25,
+            width: 70,
+            backgroundColor: colors.primary,
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius: 100,
+          }}>
           <Text
             style={{
               padding: 2,

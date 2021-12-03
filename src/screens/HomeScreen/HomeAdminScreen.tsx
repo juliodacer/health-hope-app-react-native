@@ -5,8 +5,6 @@ import IconCircleButon from '../../components/IconCircleButton/IconCircleButon';
 import {SliderImg} from '../../components/SliderImg/SliderImg';
 import {colors} from '../../theme/colors';
 import { useNavigation } from '@react-navigation/core';
-import { StackScreenProps } from '@react-navigation/stack';
-import { HabitsStackParams } from '../../navigator/HabitsNavigator';
 
 
 export const HomeAdminScreen = () => {
@@ -21,7 +19,7 @@ export const HomeAdminScreen = () => {
       {/* Categoria de opciones */}
       <View style={styles.categoryContainer}>
         <IconCircleButon nameIcon="users" title="Participantes" onPress={() => navigation.navigate('AdminNavigator')}/>
-         <IconCircleButon nameIcon="user-md" title="Staff Médico" onPress={() => navigation.navigate('HabitsNavigator')}/>
+         <IconCircleButon nameIcon="user-md" title="Staff Médico" onPress={() => navigation.navigate('MedicsNavigator')}/>
         <IconCircleButon nameIcon="list-alt" title="Planes" onPress={() => navigation.navigate('HabitsNavigator')}/>
       </View>
 

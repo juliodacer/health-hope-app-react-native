@@ -5,6 +5,8 @@ import {User, UsersResponse} from '../interfaces/appInterfaces';
 type UserContextProps = {
   users: User[];
   loadUsers: () => Promise<void>;
+  loadUsersParticipants: () => Promise<void>;
+  loadUsersMedicals: () => Promise<void>;
   addUser: (
     userName: string,
     userEmail: string,
@@ -30,12 +32,32 @@ export const UsersProvider = ({children}: any) => {
 
   useEffect(() => {
     loadUsers();
+    loadUsersParticipants();
+    loadUsersMedicals();
   }, []);
 
   const loadUsers = async () => {
     const resp = await healthHopeAPI.get<UsersResponse>('/users?limite=50');
     //   setHabits([...habits,...resp.data.habits]);
+    const participants = resp.data.users;
+    // setUsers([...resp.data.users]);
+    console.log(participants);
+    setUsers([...participants]);
+  };
+
+  const loadUsersParticipants = async () => {
+    const resp = await healthHopeAPI.get<UsersResponse>('/users?limite=50');
+    //   setHabits([...habits,...resp.data.habits]);
     const participants = resp.data.users.filter(r => r.role == 'USER_ROLE');
+    // setUsers([...resp.data.users]);
+    console.log(participants);
+    setUsers([...participants]);
+  };
+
+  const loadUsersMedicals = async () => {
+    const resp = await healthHopeAPI.get<UsersResponse>('/users?limite=50');
+    //   setHabits([...habits,...resp.data.habits]);
+    const participants = resp.data.users.filter(r => r.role == 'MEDICAL_ROLE');
     // setUsers([...resp.data.users]);
     console.log(participants);
     setUsers([...participants]);
@@ -84,6 +106,8 @@ export const UsersProvider = ({children}: any) => {
       value={{
         users,
         loadUsers,
+        loadUsersParticipants,
+        loadUsersMedicals,
         addUser,
         updateUser,
         deleteUser,

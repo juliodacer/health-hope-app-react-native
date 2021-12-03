@@ -31,18 +31,18 @@ export const HomeUserScreen = () => {
         }}>
         <Button
           title="Ver Calendario"
-          color={colors.white}
+          newStyle={{color:colors.white}}
           onPress={() => {}}
         />
 
-        <Button title="Ver Planes" color={colors.white} onPress={() => {}} />
+        <Button title="Ver Planes"  newStyle={{color:colors.white}} onPress={() => {}} />
       </View>
 
       {/* <Text>
                 { JSON.stringify(user, null, 5)}
             </Text> */}
 
-      <Button title="Cerrar Sesión" color={colors.white} onPress={logOut} />
+      <Button title="Cerrar Sesión"  newStyle={{color:colors.white}} onPress={logOut} />
     </View>
   );
 };

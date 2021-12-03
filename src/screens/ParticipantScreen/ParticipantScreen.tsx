@@ -1,13 +1,13 @@
 import { StackScreenProps } from '@react-navigation/stack'
 import React, { useContext, useEffect } from 'react'
 import { View, Text, ScrollView, TextInput, StyleSheet } from 'react-native';
-import { AdminStackParams } from '../../navigator/AdminNavigator'
+import { ParticipantsStackParams } from '../../navigator/ParticipantsNavigator'
 import { UsersContext } from '../../context/usersContext';
 import { useForm } from '../../hooks/useForm';
 import { ButtonGradient } from '../../components/ButtonGradient/ButtonGradient';
 import { Button } from '../../components/Button/Button';
 
-interface Props extends StackScreenProps<AdminStackParams, 'ParticipantScreen'> {}
+interface Props extends StackScreenProps<ParticipantsStackParams, 'ParticipantScreen'> {}
 
 export const ParticipantScreen = ({navigation, route}: Props) => {
 

@@ -8,10 +8,10 @@ import {
 } from 'react-native';
 import {CardUser} from '../../components/CardUser/CardUser';
 import {UsersContext} from '../../context/usersContext';
-import {AdminStackParams} from '../../navigator/AdminNavigator';
+import {ParticipantsStackParams} from '../../navigator/ParticipantsNavigator';
 
 interface Props
-  extends StackScreenProps<AdminStackParams, 'ParticipantsScreen'> {}
+  extends StackScreenProps<ParticipantsStackParams, 'ParticipantsScreen'> {}
 
 export const ParticipantsScreen = ({navigation}: Props) => {
   const {users, loadUsers} = useContext(UsersContext);
@@ -26,7 +26,7 @@ export const ParticipantsScreen = ({navigation}: Props) => {
   };
 
   return (
-    <View style={{flex: 1, marginHorizontal: 5}}>
+    <View style={{flex: 1, marginHorizontal: 5, backgroundColor: '#F5F5F5'}}>
       <FlatList
         data={users}
         keyExtractor={u => u.uid}
@@ -40,6 +40,11 @@ export const ParticipantsScreen = ({navigation}: Props) => {
                 name: item.name,
                 email: item.email,
                 role: item.role,
+                gender: item.gender,
+                age: item.age,
+                birthDate: item.birthDate,
+                cell: item.cell,
+                address: item.address,
               })
             }
           />

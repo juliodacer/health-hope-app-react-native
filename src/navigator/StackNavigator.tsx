@@ -9,10 +9,9 @@ import {AuthContext} from '../context/authContext';
 import {HomeUserScreen} from '../screens/HomeScreen/HomeUserScreen';
 import {HomeAdminScreen} from '../screens/HomeScreen/HomeAdminScreen';
 import {HomeMedicalScreen} from '../screens/HomeScreen/HomeMedicalScreen';
-
-import {LoadingScreen} from '../screens/LoadingScreen/LoadingScreen';
 import {HabitsNavigator} from './HabitsNavigator';
-import {AdminNavigator} from './AdminNavigator';
+import {ParticipantsNavigator} from './ParticipantsNavigator';
+import {MedicsNavigator} from './MedicsNavigator';
 
 const Stack = createStackNavigator();
 
@@ -38,8 +37,9 @@ export const StackNavigator = () => {
       ) : user?.role === 'ADMIN_ROLE' ? (
         <>
           <Stack.Screen name="HomeAdminScreen" component={HomeAdminScreen} />
+          <Stack.Screen name="ParticipantsNavigator" component={ParticipantsNavigator}/>
+          <Stack.Screen name="MedicsNavigator" component={MedicsNavigator} />
           <Stack.Screen name="HabitsNavigator" component={HabitsNavigator} />
-          <Stack.Screen name="AdminNavigator" component={AdminNavigator} />
         </>
       ) : user?.role === 'USER_ROLE' ? (
         <>
