@@ -4,17 +4,17 @@ import {styles} from './styles';
 import { Background } from '../Background/Background';
 
 interface ButtonProps {
-  color?: string;
+  newStyle?: Object;
   onPress: () => void;
   title: string;
 }
 
-export const Button = ({title, onPress, color}: ButtonProps) => {
+export const Button = ({title, onPress, newStyle}: ButtonProps) => {
   return (
     <TouchableOpacity
     onPress={onPress}
       //onPress={() => navigation.navigate('RegisterScreen')}
-      style={[styles.containerButton, {backgroundColor: color}]}>
+      style={[styles.containerButton, newStyle]}>
       <Text style={styles.text}>{title}</Text>
     </TouchableOpacity>
   );

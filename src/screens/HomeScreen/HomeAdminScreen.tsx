@@ -4,8 +4,15 @@ import CardWrapper from '../../components/CardWrapper/CardWrapper';
 import IconCircleButon from '../../components/IconCircleButton/IconCircleButon';
 import {SliderImg} from '../../components/SliderImg/SliderImg';
 import {colors} from '../../theme/colors';
+import { useNavigation } from '@react-navigation/core';
+import { StackScreenProps } from '@react-navigation/stack';
+import { HabitsStackParams } from '../../navigator/HabitsNavigator';
+
 
 export const HomeAdminScreen = () => {
+
+  const navigation = useNavigation();
+
   return (
     <ScrollView style={styles.container}>
       {/* Slider de imágenes */}
@@ -13,15 +20,15 @@ export const HomeAdminScreen = () => {
 
       {/* Categoria de opciones */}
       <View style={styles.categoryContainer}>
-        <IconCircleButon nameIcon="users" title="Participantes" />
-        <IconCircleButon nameIcon="user-md" title="Staff Médico" />
-        <IconCircleButon nameIcon="list-alt" title="Planes" />
+        <IconCircleButon nameIcon="users" title="Participantes" onPress={() => navigation.navigate('AdminNavigator')}/>
+         <IconCircleButon nameIcon="user-md" title="Staff Médico" onPress={() => navigation.navigate('HabitsNavigator')}/>
+        <IconCircleButon nameIcon="list-alt" title="Planes" onPress={() => navigation.navigate('HabitsNavigator')}/>
       </View>
 
       <View style={styles.categoryContainer}>
-        <IconCircleButon nameIcon="heart" title="Hábitos" />
-        <IconCircleButon nameIcon="calendar" title="Calendario" />
-        <IconCircleButon nameIcon="bar-chart-o" title="Reportes" />
+        <IconCircleButon nameIcon="heart" title="Hábitos" onPress={() => navigation.navigate('HabitsNavigator')} />
+        <IconCircleButon nameIcon="calendar" title="Calendario" onPress={() => navigation.navigate('HabitsNavigator')}/>
+        <IconCircleButon nameIcon="bar-chart-o" title="Reportes" onPress={() => navigation.navigate('HabitsNavigator')}/>
       </View>
 
       {/* Planes */}

@@ -24,15 +24,17 @@ import {Picker} from '@react-native-picker/picker';
 interface Props extends StackScreenProps<any, any> {}
 
 export const RegisterScreen = ({navigation}: Props) => {
-  // const [selectedItem, setSelectedItem] = useState('');
+  const [selectedRole, setSelectedRole] = useState("USER_ROLE");
+  const [selectedGender, setSelectedGender] = useState("MALE");
 
   const {signUp, errorMessage, removeError} = useContext(AuthContext);
 
-  const {email, password, name, role, onChange} = useForm({
+  const {email, password, name, role, gender, onChange} = useForm({
     name: '',
     email: '',
     password: '',
-    role: '',
+    role: selectedRole,
+    gender: selectedGender,
   });
 
   useEffect(() => {
@@ -47,13 +49,14 @@ export const RegisterScreen = ({navigation}: Props) => {
   });
 
   const onRegister = () => {
-    console.log({email, password, name, role});
+    console.log({email, password, name, role, gender});
     Keyboard.dismiss();
     signUp({
       email,
       name,
       password,
-      role,
+      role: selectedRole,
+      gender: selectedGender,
     });
   };
 
@@ -121,12 +124,13 @@ export const RegisterScreen = ({navigation}: Props) => {
           <ScrollView showsVerticalScrollIndicator={false}>
             <Text style={styles.text_footer}>Tipo de usuario</Text>
             <Picker
-              selectedValue={role}
-              onValueChange={(value) =>
-                onChange( value, 'role')
-              }>
-              <Picker.Item label={'Paciente'} value={'USER_ROLE'} />
-              <Picker.Item label={'Médico'} value={'MEDICAL_ROLE'} />
+              selectedValue={selectedRole}
+              onValueChange={(value, index) => {
+                setSelectedRole(value)
+                onChange(value, 'role');
+                }}>
+              <Picker.Item label="Participante" value="USER_ROLE" />
+              <Picker.Item label="Staff Médico" value="MEDICAL_ROLE" />
             </Picker>
 
             {/* Nombre */}
@@ -138,8 +142,8 @@ export const RegisterScreen = ({navigation}: Props) => {
                 style={styles.textInput}
                 autoCapitalize="words"
                 autoCorrect={false}
-                onChangeText={value => onChange(value, 'name')}
                 value={name}
+                onChangeText={value => onChange(value, 'name')}
                 onSubmitEditing={onRegister}
               />
               {/* {data.check_textInputChange ? (
@@ -247,6 +251,17 @@ export const RegisterScreen = ({navigation}: Props) => {
                 )}
               </TouchableOpacity> */}
             </View>
+
+            <Text style={{...styles.text_footer, marginTop: 10}}>Sexo</Text>
+            <Picker
+              selectedValue={selectedGender}
+              onValueChange={value => {
+                setSelectedGender(value);
+                onChange(value, 'gender');
+              }}>
+              <Picker.Item label="Hombre" value="MALE" />
+              <Picker.Item label="Mujer" value="FEMALE" />
+            </Picker>
 
             {/* Buttons */}
             <View style={styles.button}>

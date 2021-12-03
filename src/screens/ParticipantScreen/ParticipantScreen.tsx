@@ -1,78 +1,67 @@
-import React, {useState, useEffect, useContext} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  TextInput,
-  Image,
-} from 'react-native';
-import {StackScreenProps} from '@react-navigation/stack';
-import {HabitsStackParams} from '../../navigator/HabitsNavigator';
-import {ButtonGradient} from '../../components/ButtonGradient/ButtonGradient';
-import {usePlans} from '../../hooks/usePlans';
-import {useForm} from '../../hooks/useForm';
-import {HabitsContext} from '../../context/habitsContext';
+import { StackScreenProps } from '@react-navigation/stack'
+import React, { useContext, useEffect } from 'react'
+import { View, Text, ScrollView, TextInput, StyleSheet } from 'react-native';
+import { AdminStackParams } from '../../navigator/AdminNavigator'
+import { UsersContext } from '../../context/usersContext';
+import { useForm } from '../../hooks/useForm';
+import { ButtonGradient } from '../../components/ButtonGradient/ButtonGradient';
 import { Button } from '../../components/Button/Button';
 
-interface Props extends StackScreenProps<HabitsStackParams, 'HabitScreen'> {}
+interface Props extends StackScreenProps<AdminStackParams, 'ParticipantScreen'> {}
 
-export const HabitScreen = ({navigation, route}: Props) => {
+export const ParticipantScreen = ({navigation, route}: Props) => {
 
   const {
     id = '',
     name = '',
-    description = '',
-    img = ''
+    email = ''
   } = route.params;
 
-  // const [selectedItem, setSelectedItem] = useState();
+  const {loadUserById, addUser, updateUser} = useContext(UsersContext);
 
-  // const {plans} = usePlans();
-
-  const {loadHabitById, addHabit, updateHabit} = useContext(HabitsContext);
-
-  const {_id, name2, description2, img2, form, onChange, setFormValue} =
+  
+  const {_id, name2, email2, form, onChange, setFormValue} =
     useForm({
       _id: id,
       name2: name,
-      description2: description,
-      img2: img,
+      email2: email,
+    //   img2: img,
     });
 
   useEffect(() => {
     navigation.setOptions({
-      title: name2 ? name2 : 'Nombre del Hábito',
+      title: name2 ? name2 : 'Nombre del Participante',
     });
   }, [name2]);
 
   useEffect(() => {
-    loadHabit();
+    loadUser();
   }, []);
 
-  const loadHabit = async () => {
+  const loadUser = async () => {
     if (id.length === 0) return;
-    const habit = await loadHabitById(id);
+    const user = await loadUserById(id);
     setFormValue({
       _id: id,
       name2: name,
-      img2: habit.img || '',
-      description2: habit.description,
+    //   img2: habit.img || '',
+      email2: user.email,
     });
   };
 
-  const saveOrUpdate = () => {
-    if (id.length > 0) {
-      updateHabit(name2, _id)
-    } else{
-      addHabit(name2, description2)
-    }
-  }
+//   const saveOrUpdate = () => {
+//     if (id.length > 0) {
+//       updateUsers(name2, _id)
+//     } else{
+//       addHabit(name2, description2)
+//     }
+//   }
 
-  return (
+
+return (
     <View style={styles.container}>
       <ScrollView>
-        {img.length > 0 && (
+        {/* {img.length > 0 && (
           <Image
             source={{uri: img}}
             style={{
@@ -81,22 +70,22 @@ export const HabitScreen = ({navigation, route}: Props) => {
               height: 300,
             }}
           />
-        )}
+        )} */}
 
-        <Text style={styles.label}>Nombre del hábito</Text>
+        <Text style={styles.label}>Participante</Text>
         <TextInput
-          placeholder="Nombre del Hábito"
+          placeholder="Ingrese su nombre"
           style={styles.txtInput}
           value={name2}
           onChangeText={value => onChange(value, 'name2')}
         />
 
-        <Text style={styles.label}>Descripción</Text>
+        <Text style={styles.label}>Email</Text>
         <TextInput
-          placeholder="Descripción"
+          placeholder="Ingrese su Email"
           style={styles.txtInput}
-          value={description2}
-          onChangeText={value => onChange(value, 'description2')}
+          value={email2}
+          onChangeText={value => onChange(value, 'email2')}
         />
 
         {/* Planes */}
@@ -118,7 +107,7 @@ export const HabitScreen = ({navigation, route}: Props) => {
           ))}
         </Picker> */}
 
-        <ButtonGradient title="Guardar" onPress={saveOrUpdate} />
+        <ButtonGradient title="Guardar" onPress={() =>  {}} />
 
         {/* <Text>{JSON.stringify(form, null, 5)}</Text> */}
       </ScrollView>

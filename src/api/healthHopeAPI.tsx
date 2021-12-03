@@ -7,17 +7,17 @@ const baseURL = "https://webserver-node-backend.herokuapp.com/api";
 
 const healthHopeAPI = axios.create({baseURL});
 
-// healthHopeAPI.interceptors.request.use(
-//     async( config )  => {
-//         const token = await AsyncStorage.getItem('token');
-//         if (token) {
-//             config.headers['x-token'] = token;
-//         }
-//         return config;
-//     },
-//     error => {
-//         return Promise.reject(error)
-//       }
-// )
+healthHopeAPI.interceptors.request.use(
+    async( config: any )  => {
+        const token = await AsyncStorage.getItem('token');
+        if (token) {
+            config.headers['x-token'] = token;
+        }
+        return config;
+    },
+    error => {
+        return Promise.reject(error)
+      }
+)
 
 export default healthHopeAPI;

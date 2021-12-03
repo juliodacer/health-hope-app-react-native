@@ -5,14 +5,13 @@ import {Habit, HabitsResponse} from '../interfaces/appInterfaces';
 type HabitsContextProps = {
   habits: Habit[];
   loadHabits: () => Promise<void>;
-  addHabit: (planId: string, habitName: string) => Promise<void>;
+  addHabit: (habitName: string, habitDescription: string) => Promise<void>;
   updateHabit: (
-    planId: string,
     habitName: string,
     habitId: string,
   ) => Promise<void>;
   deleteHabit: (id: string) => Promise<void>;
-  loadById: (id: string) => Promise<Habit>;
+  loadHabitById: (id: string) => Promise<Habit>;
   uploadImage: (data: any, id: string) => Promise<void>; //
 };
 
@@ -26,21 +25,35 @@ export const HabitsProvider = ({children}: any) => {
   }, []);
 
   const loadHabits = async () => {
-    const resp = await healthHopeAPI.get<HabitsResponse>('/habits?limit=50');
+    const resp = await healthHopeAPI.get<HabitsResponse>('/habits?limite=50');
     //   setHabits([...habits,...resp.data.habits]);
     setHabits([...resp.data.habits]);
   };
 
-  const addHabit = async (planId: string, habitName: string) => {};
-  const updateHabit = async (
-    planId: string,
-    habitName: string,
-    habitId: string,
-  ) => {};
-  const deleteHabit = async (id: string) => {};
-  const loadById = async (id: string) => {
-    throw new Error('Not implemented');
+  const addHabit = async (habitName: string, habitDescription: string) => {
+    // console.log('addHabit');
+    // console.log({habitName});
+    const resp = await healthHopeAPI.post<Habit>('/habits', {
+      name: habitName,
+      decription: habitDescription
+    });
+
+    setHabits([...habits, resp.data]);
+
   };
+
+  const updateHabit = async (habitName: string, habitId: string) => {
+    console.log('updateHabit');
+    console.log({habitName, habitId});
+  };
+
+  const deleteHabit = async (id: string) => {};
+
+  const loadHabitById = async (id: string): Promise<Habit> => {
+    const resp = await healthHopeAPI.get<Habit>(`habits/${id}`);
+    return resp.data;
+  };
+
   const uploadImage = async (data: any, id: string) => {}; //
 
   return (
@@ -51,7 +64,7 @@ export const HabitsProvider = ({children}: any) => {
         addHabit,
         updateHabit,
         deleteHabit,
-        loadById,
+        loadHabitById,
         uploadImage,
       }}>
       {children}

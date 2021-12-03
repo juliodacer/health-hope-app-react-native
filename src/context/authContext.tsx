@@ -79,12 +79,13 @@ export const AuthProvider = ({children}: any) => {
     }
   };
 
-  const signUp = async ({name, email, password, role}: RegisterData) => {
+  const signUp = async ({name, email, password,  gender, role}: RegisterData) => {
     try {
       const {data} = await healthHopeAPI.post<LoginResponse>('/users', {
         name,
         email,
         password,
+        gender,
         role
       });
 
