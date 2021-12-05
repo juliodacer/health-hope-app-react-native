@@ -4,6 +4,8 @@ import {User, UsersResponse} from '../interfaces/appInterfaces';
 
 type UserContextProps = {
   users: User[];
+  usersParticipants: User[];
+  usersMedics: User[];
   loadUsers: () => Promise<void>;
   loadUsersParticipants: () => Promise<void>;
   loadUsersMedicals: () => Promise<void>;
@@ -29,6 +31,8 @@ export const UsersContext = createContext({} as UserContextProps);
 
 export const UsersProvider = ({children}: any) => {
   const [users, setUsers] = useState<User[]>([]);
+  const [usersParticipants, setUsersParticipants] = useState<User[]>([]);
+  const [usersMedics, setUsersMedics] = useState<User[]>([]);
 
   useEffect(() => {
     loadUsers();
@@ -36,13 +40,15 @@ export const UsersProvider = ({children}: any) => {
     loadUsersMedicals();
   }, []);
 
+  useEffect(() => {});
+
   const loadUsers = async () => {
     const resp = await healthHopeAPI.get<UsersResponse>('/users?limite=50');
     //   setHabits([...habits,...resp.data.habits]);
-    const participants = resp.data.users;
+    const users = resp.data.users;
     // setUsers([...resp.data.users]);
-    console.log(participants);
-    setUsers([...participants]);
+    console.log(users);
+    setUsers([...users]);
   };
 
   const loadUsersParticipants = async () => {
@@ -50,17 +56,17 @@ export const UsersProvider = ({children}: any) => {
     //   setHabits([...habits,...resp.data.habits]);
     const participants = resp.data.users.filter(r => r.role == 'USER_ROLE');
     // setUsers([...resp.data.users]);
-    console.log(participants);
-    setUsers([...participants]);
+    //console.log(participants);
+    setUsersParticipants([...participants]);
   };
 
   const loadUsersMedicals = async () => {
     const resp = await healthHopeAPI.get<UsersResponse>('/users?limite=50');
     //   setHabits([...habits,...resp.data.habits]);
-    const participants = resp.data.users.filter(r => r.role == 'MEDICAL_ROLE');
+    const medics = resp.data.users.filter(r => r.role == 'MEDICAL_ROLE');
     // setUsers([...resp.data.users]);
-    console.log(participants);
-    setUsers([...participants]);
+    //console.log(medics);
+    setUsersMedics([...medics]);
   };
 
   const addUser = async (
@@ -105,6 +111,8 @@ export const UsersProvider = ({children}: any) => {
     <UsersContext.Provider
       value={{
         users,
+        usersParticipants,
+        usersMedics,
         loadUsers,
         loadUsersParticipants,
         loadUsersMedicals,

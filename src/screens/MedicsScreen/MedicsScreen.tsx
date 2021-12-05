@@ -14,7 +14,7 @@ interface Props
   extends StackScreenProps<MedicsStackParams, 'MedicsScreen'> {}
 
 export const MedicsScreen = ({navigation}: Props) => {
-  const {users, loadUsersMedicals} = useContext(UsersContext);
+  const {usersMedics, loadUsersMedicals} = useContext(UsersContext);
 
   const [isRefreshing, setIsRefreshing] = useState(false);
 
@@ -28,7 +28,7 @@ export const MedicsScreen = ({navigation}: Props) => {
   return (
     <View style={{flex: 1, marginHorizontal: 5, backgroundColor: '#F5F5F5'}}>
       <FlatList
-        data={users}
+        data={usersMedics}
         keyExtractor={u => u.uid}
         contentContainerStyle={{padding: 15}}
         renderItem={({item}) => (

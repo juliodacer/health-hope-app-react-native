@@ -14,21 +14,21 @@ interface Props
   extends StackScreenProps<ParticipantsStackParams, 'ParticipantsScreen'> {}
 
 export const ParticipantsScreen = ({navigation}: Props) => {
-  const {users, loadUsers} = useContext(UsersContext);
+  const {usersParticipants, loadUsersParticipants} = useContext(UsersContext);
 
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   //Refresh
   const loadProductsFromBackend = async () => {
     setIsRefreshing(true);
-    await loadUsers();
+    await loadUsersParticipants();
     setIsRefreshing(false);
   };
 
   return (
     <View style={{flex: 1, marginHorizontal: 5, backgroundColor: '#F5F5F5'}}>
       <FlatList
-        data={users}
+        data={usersParticipants}
         keyExtractor={u => u.uid}
         contentContainerStyle={{padding: 15}}
         renderItem={({item}) => (

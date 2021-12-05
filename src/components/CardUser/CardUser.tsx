@@ -10,40 +10,41 @@ interface Props {
 }
 
 export const CardUser = ({user, onPress}: Props) => {
-  const {name, occupation, gender, age} = user;
+  const {name, occupation, gender, age, role} = user;
 
-  const avatarFemale = '../../assets/avatar-female.png';
-  const avatarMale = '../../assets/avatar-male.png';
+  const avatarFemaleParticipant = '../../assets/avatar-female-participant.png';
+  const avatarMaleParticipant = '../../assets/avatar-male-participant.png';
+  const avatarMaleMedic = '../../assets/avatar-male-medic.png';
+  const avatarFemaleMedic = '../../assets/avatar-female-medic.png';
 
   return (
     <TouchableOpacity style={styles.card} activeOpacity={0.8} onPress={onPress}>
       <Image
         source={
-          gender === 'FEMALE' ? require(avatarFemale) : require(avatarMale)
+          role === 'USER_ROLE' && gender === 'FEMALE'
+            ? require(avatarFemaleParticipant)
+            : role === 'USER_ROLE' && gender === 'MALE'
+            ? require(avatarMaleParticipant)
+            : role === 'MEDICAL_ROLE' && gender === 'FEMALE'
+            ? require(avatarFemaleMedic)
+            : require(avatarMaleMedic)
         }
         resizeMode="cover"
         style={styles.cardImg}
       />
       <View>
-        <Text style={styles.cardTitle}>{name}</Text>
-        <Text style={styles.cardDetails}>Medico</Text>
-        <View
-          style={{
-            height: 25,
-            width: 70,
-            backgroundColor: colors.primary,
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderRadius: 100,
-          }}>
+        <Text style={styles.cardName}>{name}</Text>
+        {age && <Text style={styles.cardDetails}>Edad: {age}</Text>}
+        {occupation && (
           <Text
             style={{
-              padding: 2,
-              color: colors.white,
+              ...styles.cardDetails,
+              fontWeight: '400',
+              color: colors.primary,
             }}>
-            Edad: 35
+            {occupation}
           </Text>
-        </View>
+        )}
       </View>
     </TouchableOpacity>
   );

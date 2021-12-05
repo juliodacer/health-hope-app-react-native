@@ -6,7 +6,6 @@ import {SliderImg} from '../../components/SliderImg/SliderImg';
 import {colors} from '../../theme/colors';
 import { useNavigation } from '@react-navigation/core';
 
-
 export const HomeAdminScreen = () => {
 
   const navigation = useNavigation();
@@ -18,7 +17,7 @@ export const HomeAdminScreen = () => {
 
       {/* Categoria de opciones */}
       <View style={styles.categoryContainer}>
-        <IconCircleButon nameIcon="users" title="Participantes" onPress={() => navigation.navigate('AdminNavigator')}/>
+        <IconCircleButon nameIcon="users" title="Participantes" onPress={() => navigation.navigate('ParticipantsNavigator')}/>
          <IconCircleButon nameIcon="user-md" title="Staff Médico" onPress={() => navigation.navigate('MedicsNavigator')}/>
         <IconCircleButon nameIcon="list-alt" title="Planes" onPress={() => navigation.navigate('HabitsNavigator')}/>
       </View>
