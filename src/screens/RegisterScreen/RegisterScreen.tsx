@@ -2,26 +2,23 @@ import React, {useContext, useEffect, useState} from 'react';
 import {
   View,
   Text,
-  TouchableOpacity,
   TextInput,
   ScrollView,
-  StatusBar,
   Keyboard,
   Alert,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {useNavigation} from '@react-navigation/core';
 import {styles} from './styles';
 import {AuthContext} from '../../context/authContext';
 import {ButtonGradient} from '../../components/ButtonGradient/ButtonGradient';
 import {Button} from '../../components/Button/Button';
 import {useForm} from '../../hooks/useForm';
-import {StackScreenProps} from '@react-navigation/stack';
 import {colors} from '../../theme/colors';
 import {Picker} from '@react-native-picker/picker';
+import { DrawerScreenProps } from '@react-navigation/drawer';
 
-interface Props extends StackScreenProps<any, any> {}
+interface Props extends DrawerScreenProps<any, any> {}
 
 export const RegisterScreen = ({navigation}: Props) => {
   const [selectedRole, setSelectedRole] = useState("USER_ROLE");
@@ -235,6 +232,7 @@ export const RegisterScreen = ({navigation}: Props) => {
               <TextInput
                 placeholder="Confirme su contraseña"
                 secureTextEntry={true}
+
                 style={styles.textInput}
                 autoCapitalize="none"
                 autoCorrect={false}
@@ -271,7 +269,7 @@ export const RegisterScreen = ({navigation}: Props) => {
               {/* Boton Login */}
               <Button
                 title="Iniciar Sesión"
-                onPress={() => navigation.replace('LoginScreen')}
+                onPress={() => navigation.navigate('LoginScreen')}
               />
             </View>
           </ScrollView>

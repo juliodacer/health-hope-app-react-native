@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, Text, Image, StyleSheet, ScrollView} from 'react-native';
 import CardWrapper from '../../components/CardWrapper/CardWrapper';
 import IconCircleButon from '../../components/IconCircleButton/IconCircleButon';
@@ -10,6 +10,12 @@ export const HomeAdminScreen = () => {
 
   const navigation = useNavigation();
 
+  useEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => <Text>Hola Mundo</Text>
+    })
+  })
+
   return (
     <ScrollView style={styles.container}>
       {/* Slider de imágenes */}
@@ -19,7 +25,7 @@ export const HomeAdminScreen = () => {
       <View style={styles.categoryContainer}>
         <IconCircleButon nameIcon="users" title="Participantes" onPress={() => navigation.navigate('ParticipantsNavigator')}/>
          <IconCircleButon nameIcon="user-md" title="Staff Médico" onPress={() => navigation.navigate('MedicsNavigator')}/>
-        <IconCircleButon nameIcon="list-alt" title="Planes" onPress={() => navigation.navigate('HabitsNavigator')}/>
+        <IconCircleButon nameIcon="list-alt" title="Planes" onPress={() => navigation.navigate('PlansNavigator')}/>
       </View>
 
       <View style={styles.categoryContainer}>
@@ -30,7 +36,7 @@ export const HomeAdminScreen = () => {
 
       {/* Planes */}
       <Text style={styles.title}>Planes de estilo de vida</Text>
-      <CardWrapper
+      {/* <CardWrapper
         title="Plan de estilo de vida saludable 2021"
         description="Breve description del estilo de vida"
       />
@@ -41,7 +47,7 @@ export const HomeAdminScreen = () => {
       <CardWrapper
         title="Plan de estilo de vida saludable 2019"
         description="Breve description del estilo de vida"
-      />
+      /> */}
     </ScrollView>
   );
 };

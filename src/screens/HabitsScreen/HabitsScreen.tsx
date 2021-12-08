@@ -8,11 +8,12 @@ import {
   RefreshControl,
 } from 'react-native';
 import {HabitsContext} from '../../context/habitsContext';
-import {StackScreenProps} from '@react-navigation/stack';
 import {HabitsStackParams} from '../../navigator/HabitsNavigator';
 import { colors } from '../../theme/colors';
+import { IconDrawer } from '../../components/IconDrawer/IconDrawer';
+import { DrawerScreenProps } from '@react-navigation/drawer';
 
-interface Props extends StackScreenProps<HabitsStackParams, 'HabitsScreen'> {}
+interface Props extends DrawerScreenProps<HabitsStackParams, 'HabitsScreen'> {}
 
 export const HabitsScreen = ({navigation}: Props) => {
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -21,6 +22,9 @@ export const HabitsScreen = ({navigation}: Props) => {
 
   useEffect(() => {
     navigation.setOptions({
+      headerLeft: () => (
+        <IconDrawer onPress={() => navigation.toggleDrawer()} />
+      ),
       headerRight: () => (
         <TouchableOpacity
           activeOpacity={0.8}

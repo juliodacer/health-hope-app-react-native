@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {ParticipantsScreen} from '../screens/ParticipantsScreen/ParticipantsScreen';
 import {ParticipantScreen} from '../screens/ParticipantScreen/ParticipantScreen';
@@ -22,17 +22,20 @@ export type ParticipantsStackParams = {
 const Stack = createStackNavigator();
 
 export const ParticipantsNavigator = () => {
+
+
   return (
     <Stack.Navigator
-      screenOptions={{
-        cardStyle: {
-          backgroundColor: 'white',
-        },
-        headerStyle: {
-          elevation: 0,
-          shadowColor: 'transparent',
-        },
-      }}>
+      // screenOptions={{
+      //   cardStyle: {
+      //     backgroundColor: 'white',
+      //   },
+      //   headerStyle: {
+      //     elevation: 0,
+      //     shadowColor: 'transparent',
+      //   },
+      // }}
+      >
       {/* Participants Screens */}
       <Stack.Screen
         name="ParticipantsScreen"

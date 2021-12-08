@@ -25,15 +25,16 @@ const Stack = createStackNavigator();
 export const MedicsNavigator = () => {
   return (
     <Stack.Navigator
-      screenOptions={{
-        cardStyle: {
-          backgroundColor: 'white',
-        },
-        headerStyle: {
-          elevation: 0,
-          shadowColor: 'transparent',
-        },
-      }}>
+      // screenOptions={{
+      //   cardStyle: {
+      //     backgroundColor: 'white',
+      //   },
+      //   headerStyle: {
+      //     elevation: 0,
+      //     shadowColor: 'transparent',
+      //   },
+      // }}
+      >
 
       {/* Medical Screens */}
       <Stack.Screen

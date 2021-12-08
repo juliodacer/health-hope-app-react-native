@@ -21,8 +21,9 @@ import {ButtonGradient} from '../../components/ButtonGradient/ButtonGradient';
 import {useForm} from '../../hooks/useForm';
 import {StackScreenProps} from '@react-navigation/stack';
 import {AuthContext} from '../../context/authContext';
+import { DrawerScreenProps } from '@react-navigation/drawer';
 
-interface Props extends StackScreenProps<any, any> {}
+interface Props extends DrawerScreenProps<any, any> {}
 
 export const LoginScreen = ({navigation}: Props) => {
   const {signIn, errorMessage, removeError} = useContext(AuthContext);
@@ -171,7 +172,7 @@ export const LoginScreen = ({navigation}: Props) => {
 
             <Button
               title="Registrar"
-              onPress={() => navigation.replace('RegisterScreen')}
+              onPress={() => navigation.navigate('RegisterScreen')}
             />
           </View>
         </Animatable.View>

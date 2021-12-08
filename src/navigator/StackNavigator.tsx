@@ -22,12 +22,13 @@ export const StackNavigator = () => {
 
   return (
     <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-        cardStyle: {
-          backgroundColor: colors.primaryLight,
-        },
-      }}>
+      // screenOptions={{
+      //   headerShown: false,
+      //   cardStyle: {
+      //     backgroundColor: colors.primaryLight,
+      //   },
+      // }}
+      >
       {status !== 'authenticated' ? (
         <>
           <Stack.Screen name="SplashScreen" component={SplashScreen} />

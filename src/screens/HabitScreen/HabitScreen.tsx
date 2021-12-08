@@ -10,7 +10,6 @@ import {
 import {StackScreenProps} from '@react-navigation/stack';
 import {HabitsStackParams} from '../../navigator/HabitsNavigator';
 import {ButtonGradient} from '../../components/ButtonGradient/ButtonGradient';
-import {usePlans} from '../../hooks/usePlans';
 import {useForm} from '../../hooks/useForm';
 import {HabitsContext} from '../../context/habitsContext';
 import { Button } from '../../components/Button/Button';

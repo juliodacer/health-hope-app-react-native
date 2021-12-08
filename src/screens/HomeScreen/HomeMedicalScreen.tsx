@@ -5,7 +5,7 @@ import {AuthContext} from '../../context/authContext';
 import {colors} from '../../theme/colors';
 
 export const HomeMedicalScreen = () => {
-  const {user, token, logOut} = useContext(AuthContext);
+  const {user, logOut} = useContext(AuthContext);
 
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>

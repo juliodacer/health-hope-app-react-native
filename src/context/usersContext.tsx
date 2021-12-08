@@ -10,17 +10,34 @@ type UserContextProps = {
   loadUsersParticipants: () => Promise<void>;
   loadUsersMedicals: () => Promise<void>;
   addUser: (
+    userId: string,
     userName: string,
     userEmail: string,
     userPassword: string,
+    userGender: string,
+    userAge: number,
+    userWeight: number,
+    userBirthDate: string,
+    userCell: string,
+    userAddress: string,
+    userOccupation: string,
     userRole: string,
+    userImg: string,
   ) => Promise<void>;
   updateUser: (
+    userId: string,
     userName: string,
     userEmail: string,
     userPassword: string,
+    userGender: string,
+    userAge: number,
+    userWeight: number,
+    userBirthDate: string,
+    userCell: string,
+    userAddress: string,
+    userOccupation: string,
     userRole: string,
-    userId: string,
+    userImg: string,
   ) => Promise<void>;
   deleteUser: (id: string) => Promise<void>;
   loadUserById: (id: string) => Promise<User>;
@@ -70,10 +87,19 @@ export const UsersProvider = ({children}: any) => {
   };
 
   const addUser = async (
+    userId: string,
     userName: string,
     userEmail: string,
     userPassword: string,
+    userGender: string,
+    userAge: number,
+    userWeight: number,
+    userBirthDate: string,
+    userCell: string,
+    userAddress: string,
+    userOccupation: string,
     userRole: string,
+    userImg: string,
   ) => {
     // console.log('addHabit');
     // console.log({habitName});
@@ -81,6 +107,14 @@ export const UsersProvider = ({children}: any) => {
       name: userName,
       email: userEmail,
       password: userPassword,
+      gender: userGender,
+      age: userAge,
+      weight: userWeight,
+      birthDate: userBirthDate,
+      cell: userCell,
+      address: userAddress,
+      occupation: userOccupation,
+      img: userImg,
       role: userRole,
     });
 
@@ -88,14 +122,36 @@ export const UsersProvider = ({children}: any) => {
   };
 
   const updateUser = async (
+    userId: string,
     userName: string,
     userEmail: string,
     userPassword: string,
+    userGender: string,
+    userAge: number,
+    userWeight: number,
+    userBirthDate: string,
+    userCell: string,
+    userAddress: string,
+    userOccupation: string,
     userRole: string,
-    userId: string,
+    userImg: string,
   ) => {
     console.log('updateUser');
-    console.log({userName, userEmail, userPassword, userRole, userId});
+    console.log({
+      userName,
+      userEmail,
+      userPassword,
+      userGender,
+      userRole,
+      userId,
+      userAge,
+      userWeight,
+      userBirthDate,
+      userCell,
+      userAddress,
+      userOccupation,
+      userImg,
+    });
   };
 
   const deleteUser = async (id: string) => {};

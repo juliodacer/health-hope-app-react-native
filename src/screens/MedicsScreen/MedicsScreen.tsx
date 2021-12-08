@@ -1,22 +1,26 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {StackScreenProps} from '@react-navigation/stack';
-import {
-  View,
-  FlatList,
-  StyleSheet,
-  RefreshControl,
-} from 'react-native';
+import {View, FlatList, StyleSheet, RefreshControl} from 'react-native';
 import {CardUser} from '../../components/CardUser/CardUser';
 import {UsersContext} from '../../context/usersContext';
 import {MedicsStackParams} from '../../navigator/MedicsNavigator';
+import {IconDrawer} from '../../components/IconDrawer/IconDrawer';
+import { DrawerScreenProps } from '@react-navigation/drawer';
 
-interface Props
-  extends StackScreenProps<MedicsStackParams, 'MedicsScreen'> {}
+interface Props extends DrawerScreenProps<MedicsStackParams, 'MedicsScreen'> {}
 
 export const MedicsScreen = ({navigation}: Props) => {
   const {usersMedics, loadUsersMedicals} = useContext(UsersContext);
 
   const [isRefreshing, setIsRefreshing] = useState(false);
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <IconDrawer onPress={() => navigation.toggleDrawer()} />
+      ),
+    });
+  }, []);
 
   //Refresh
   const loadProductsFromBackend = async () => {
@@ -42,7 +46,7 @@ export const MedicsScreen = ({navigation}: Props) => {
                 role: item.role,
                 gender: item.gender,
                 age: item.age,
-                occupation: item.occupation
+                occupation: item.occupation,
               })
             }
           />

@@ -22,11 +22,13 @@ export interface UsersResponse {
 }
 
 export interface User {
+  uid: string;
   name: string;
   email: string;
   password: string;
   gender?: string,
   age?: number;
+  weight?: number;
   birthDate?: string;
   cell?: string;
   address?: string;
@@ -34,7 +36,6 @@ export interface User {
   role: string;
   status: boolean;
   google: boolean;
-  uid: string;
   img?: string;
 }
 
@@ -55,7 +56,20 @@ export interface Habit {
   plan: Plan;
 }
 
+export interface PlansResponse {
+  total: number;
+  plans: Plan[];
+}
+
 export interface Plan {
   _id: string;
   name: string;
+  description?: string;
+  img?: string;
+  objective?: string;
+  startDate?: string;
+  finishDate?: string;
+  createAt?: string;
+  status: boolean;
+  user?: string
 }

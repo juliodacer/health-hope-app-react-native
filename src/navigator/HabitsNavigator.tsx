@@ -14,15 +14,15 @@ const Stack = createStackNavigator();
 export const HabitsNavigator = () => {
     return (
         <Stack.Navigator
-            screenOptions={{
-               cardStyle:{
-                   backgroundColor: 'white'
-               },
-               headerStyle: {
-                   elevation: 0,
-                   shadowColor: 'transparent'
-               }
-            }}
+            // screenOptions={{
+            //    cardStyle:{
+            //        backgroundColor: 'white'
+            //    },
+            //    headerStyle: {
+            //        elevation: 0,
+            //        shadowColor: 'transparent'
+            //    }
+            // }}
         >
             <Stack.Screen
                 name="HabitsScreen"
