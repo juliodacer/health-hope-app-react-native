@@ -1,6 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {
-  StyleSheet,
   Text,
   View,
   FlatList,
@@ -9,14 +8,19 @@ import {
 } from 'react-native';
 import {HabitsContext} from '../../context/habitsContext';
 import {HabitsStackParams} from '../../navigator/HabitsNavigator';
-import { colors } from '../../theme/colors';
-import { IconDrawer } from '../../components/IconDrawer/IconDrawer';
-import { DrawerScreenProps } from '@react-navigation/drawer';
+import {colors} from '../../theme/colors';
+import {IconDrawer} from '../../components/IconDrawer/IconDrawer';
+import {DrawerScreenProps} from '@react-navigation/drawer';
+import {AuthContext} from '../../context/authContext';
+
+import {styles} from './styles'
 
 interface Props extends DrawerScreenProps<HabitsStackParams, 'HabitsScreen'> {}
 
 export const HabitsScreen = ({navigation}: Props) => {
   const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const {user} = useContext(AuthContext);
 
   const {habits, loadHabits} = useContext(HabitsContext);
 
@@ -25,14 +29,20 @@ export const HabitsScreen = ({navigation}: Props) => {
       headerLeft: () => (
         <IconDrawer onPress={() => navigation.toggleDrawer()} />
       ),
-      headerRight: () => (
-        <TouchableOpacity
-          activeOpacity={0.8}
-          style={{marginRight: 20, backgroundColor: colors.primary, padding:5, borderRadius: 15}}
-          onPress={() => navigation.navigate('HabitScreen', {})}>
-          <Text style={{color: colors.white}}>Agregar</Text>
-        </TouchableOpacity>
-      ),
+      headerRight: () =>
+        user?.role === 'ADMIN_ROLE' && (
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={{
+              marginRight: 20,
+              backgroundColor: colors.primary,
+              padding: 5,
+              borderRadius: 15,
+            }}
+            onPress={() => navigation.navigate('HabitScreen', {})}>
+            <Text style={{color: colors.white}}>Agregar</Text>
+          </TouchableOpacity>
+        ),
     });
   }, []);
 
@@ -74,13 +84,3 @@ export const HabitsScreen = ({navigation}: Props) => {
   );
 };
 
-const styles = StyleSheet.create({
-  habitName: {
-    fontSize: 20,
-  },
-  itemSeparetor: {
-    borderBottomWidth: 3,
-    marginVertical: 5,
-    borderBottomColor: 'rgba(0,0,0,0.1)',
-  },
-});

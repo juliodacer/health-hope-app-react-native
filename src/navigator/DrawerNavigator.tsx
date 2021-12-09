@@ -13,7 +13,7 @@ import {MedicsNavigator} from './MedicsNavigator';
 import {HabitsNavigator} from './HabitsNavigator';
 import {CustomDrawer} from '../components/CustomDrawer/CustomDrawer';
 import {PlansNavigator} from './PlansNavigator';
-import { ProfileNavigator } from './ProfileNavigator';
+import {ProfileNavigator} from './ProfileNavigator';
 
 const Drawer = createDrawerNavigator();
 
@@ -69,7 +69,6 @@ export const DrawerNavigator = () => {
             options={{title: 'Planes Saludables'}}
             component={PlansNavigator}
           />
-
           <Drawer.Screen
             name="HabitsNavigator"
             options={{title: 'Hábitos'}}
@@ -78,8 +77,8 @@ export const DrawerNavigator = () => {
         </>
       ) : user?.role === 'USER_ROLE' ? (
         <>
-          <Drawer.Screen name="HabitsNavigator" component={HabitsNavigator} />
           <Drawer.Screen name="HomeUserScreen" component={HomeUserScreen} />
+
           <Drawer.Screen
             name="ProfileNavigator"
             options={{title: 'Perfil'}}
@@ -100,6 +99,11 @@ export const DrawerNavigator = () => {
             options={{title: 'Planes Saludables'}}
             component={PlansNavigator}
           />
+           <Drawer.Screen
+            name="HabitsNavigator"
+            options={{title: 'Hábitos'}}
+            component={HabitsNavigator}
+          />
         </>
       ) : (
         <>
@@ -108,7 +112,7 @@ export const DrawerNavigator = () => {
             name="HomeMedicalScreen"
             component={HomeMedicalScreen}
           />
-           <Drawer.Screen
+          <Drawer.Screen
             name="ProfileNavigator"
             options={{title: 'Perfil'}}
             component={ProfileNavigator}

@@ -3,7 +3,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { PlanScreen } from '../screens/PlanScreen/PlanScreen';
 import { PlansScreen } from '../screens/PlansScreen.tsx/PlansScreen';
 
-
 export type PlansStackParams = {
     PlansScreen: undefined
     PlanScreen: {  id?: string;

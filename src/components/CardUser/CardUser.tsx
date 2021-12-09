@@ -48,7 +48,7 @@ export const CardUser = ({text, add, user, onPress}: Props) => {
             </Text>
           )}
         </View>
-        <View style= {add}>ç
+        <View style= {add}>
           <Text style={{color: colors.black}}>{text}</Text>
         </View>
       </TouchableOpacity>

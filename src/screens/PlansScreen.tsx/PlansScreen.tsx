@@ -2,10 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import {
   View,
   FlatList,
-  StyleSheet,
   RefreshControl,
-  Text,
-  TouchableOpacity,
 } from 'react-native';
 import {DrawerScreenProps} from '@react-navigation/drawer';
 import {PlansStackParams} from '../../navigator/PlansNavigator';
@@ -73,14 +70,3 @@ export const PlansScreen = ({navigation}: Props) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  habitName: {
-    fontSize: 20,
-  },
-  itemSeparetor: {
-    borderBottomWidth: 3,
-    marginVertical: 5,
-    borderBottomColor: 'rgba(0,0,0,0.1)',
-  },
-});

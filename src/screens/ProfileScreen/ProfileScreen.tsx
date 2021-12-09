@@ -1,5 +1,5 @@
 import React, {useContext, useEffect} from 'react';
-import {View, SafeAreaView, StyleSheet} from 'react-native';
+import {View} from 'react-native';
 import {
   Avatar,
   Title,

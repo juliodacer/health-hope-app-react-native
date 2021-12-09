@@ -11,14 +11,16 @@ interface PropsButton {
   nameIcon: string;
   title: string;
   onPress: () => void ;
+  customStyles?: Object;
+  customIcon?: string;
 }
 
-const IconCircleButon = ({nameIcon, title, onPress}: PropsButton) => {
+const IconCircleButon = ({nameIcon, title, onPress, customStyles, customIcon}: PropsButton) => {
   return (
     <>
       <TouchableOpacity style={styles.categoryBtn} onPress={onPress}>
-        <View style={styles.categoryIcon}>
-          <FontAwesome name={nameIcon} size={35} color={colors.blue} />
+        <View style={[styles.categoryIcon, customStyles]}>
+          <FontAwesome name={nameIcon} size={35} color={customIcon ? customIcon : colors.blue} />
         </View>
         <Text style={styles.categoryBtnTxt}>{title}</Text>
       </TouchableOpacity>

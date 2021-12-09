@@ -1,6 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {StackScreenProps} from '@react-navigation/stack';
-import {View, FlatList, StyleSheet, RefreshControl} from 'react-native';
+import {View, FlatList, RefreshControl} from 'react-native';
 import {CardUser} from '../../components/CardUser/CardUser';
 import {UsersContext} from '../../context/usersContext';
 import {MedicsStackParams} from '../../navigator/MedicsNavigator';
@@ -62,14 +61,3 @@ export const MedicsScreen = ({navigation}: Props) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  habitName: {
-    fontSize: 20,
-  },
-  itemSeparetor: {
-    borderBottomWidth: 3,
-    marginVertical: 5,
-    borderBottomColor: 'rgba(0,0,0,0.1)',
-  },
-});

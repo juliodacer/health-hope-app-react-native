@@ -17,6 +17,7 @@ export const styles = StyleSheet.create({
         height: 70,
         backgroundColor: colors.primaryLight,
         borderRadius: 50,
+        
       },
       categoryBtnTxt: {
         alignSelf: 'center',

@@ -1,12 +1,12 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {View, FlatList, StyleSheet, RefreshControl, Text} from 'react-native';
+import {View, FlatList, RefreshControl} from 'react-native';
 import {DrawerScreenProps} from '@react-navigation/drawer';
 import {CardUser} from '../../components/CardUser/CardUser';
 import {UsersContext} from '../../context/usersContext';
 import {ParticipantsStackParams} from '../../navigator/ParticipantsNavigator';
 import {IconDrawer} from '../../components/IconDrawer/IconDrawer';
 import {AuthContext} from '../../context/authContext';
-import { colors } from '../../theme/colors';
+import {colors} from '../../theme/colors';
 
 interface Props
   extends DrawerScreenProps<ParticipantsStackParams, 'ParticipantsScreen'> {}
@@ -51,7 +51,7 @@ export const ParticipantsScreen = ({navigation}: Props) => {
                     alignItems: 'center',
                     backgroundColor: colors.primaryLight,
                     borderRadius: 20,
-                    marginLeft: 5
+                    marginLeft: 5,
                   }
                 : {}
             }
@@ -84,14 +84,3 @@ export const ParticipantsScreen = ({navigation}: Props) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  habitName: {
-    fontSize: 20,
-  },
-  itemSeparetor: {
-    borderBottomWidth: 3,
-    marginVertical: 5,
-    borderBottomColor: 'rgba(0,0,0,0.1)',
-  },
-});

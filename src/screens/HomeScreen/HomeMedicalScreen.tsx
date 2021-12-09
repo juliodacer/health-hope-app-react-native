@@ -1,48 +1,101 @@
-import React, {useContext} from 'react';
-import {View, Text} from 'react-native';
-import {Button} from '../../components/Button/Button';
-import {AuthContext} from '../../context/authContext';
+import React from 'react';
+import {View, Text, ScrollView} from 'react-native';
+import IconCircleButon from '../../components/IconCircleButton/IconCircleButon';
+import {SliderImg} from '../../components/SliderImg/SliderImg';
 import {colors} from '../../theme/colors';
+import {IconDrawer} from '../../components/IconDrawer/IconDrawer';
+import {DrawerScreenProps} from '@react-navigation/drawer';
+import {styles} from './styles'
 
-export const HomeMedicalScreen = () => {
-  const {user, logOut} = useContext(AuthContext);
+interface Props extends DrawerScreenProps<any, any> {}
 
+export const HomeMedicalScreen = ({navigation}: Props) => {
   return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text style={{fontSize: 25, margin:20}}>Bienvenido</Text>
-
-      <View
-        style={{
-          height: 60,
-          width: 300,
-          paddingVertical: 10,
-          backgroundColor: 'white',
-          justifyContent: 'center',
-          alignItems: 'center',
-          borderRadius: 25,
-        }}>
-        <Text style={{fontSize: 16}}>Nombre: {user?.name}</Text>
-        <Text style={{fontSize: 16}}>Nombre: {user?.email}</Text>
+    <ScrollView style={styles.container}>
+      <Text style={{...styles.title, fontSize: 22}}>Bienvenido</Text>
+      <View style={{position: 'absolute', right: 10, top: 5}}>
+        <IconDrawer onPress={() => navigation.toggleDrawer()} />
       </View>
 
-      <View
-        style={{
-          justifyContent: 'center',
-        }}>
-        <Button
-          title="Ver Calendario"
-          newStyle={{color: colors.white}}
-          onPress={() => {}}
+      {/* Slider de imágenes */}
+      <SliderImg />
+
+      {/* Categoria de opciones */}
+      <View style={styles.categoryContainer}>
+        <IconCircleButon
+          nameIcon="users"
+          title="Participantes"
+          customStyles={{
+            backgroundColor: colors.white,
+            borderWidth: 3,
+            borderColor: colors.primary,
+          }}
+          customIcon={colors.primary}
+          onPress={() => navigation.navigate('ParticipantsNavigator')}
         />
-
-        <Button title="Ver Planes" newStyle={{color: colors.white}} onPress={() => {}} />
+        <IconCircleButon
+          nameIcon="user-md"
+          title="Staff Médico"
+          customStyles={{
+            backgroundColor: colors.white,
+            borderWidth: 3,
+            borderColor: colors.primary,
+          }}
+          customIcon={colors.primary}
+          onPress={() => navigation.navigate('MedicsNavigator')}
+        />
+        <IconCircleButon
+          nameIcon="list-alt"
+          title="Planes"
+          customStyles={{
+            backgroundColor: colors.white,
+            borderWidth: 3,
+            borderColor: colors.primary,
+          }}
+          customIcon={colors.primary}
+          onPress={() => navigation.navigate('PlansNavigator')}
+        />
       </View>
 
-      {/* <Text>
-                { JSON.stringify(user, null, 5)}
-            </Text> */}
+      <View style={styles.categoryContainer}>
+        <IconCircleButon
+          nameIcon="heart"
+          title="Hábitos"
+          customStyles={{
+            backgroundColor: colors.white,
+            borderWidth: 3,
+            borderColor: colors.primary,
+          }}
+          customIcon={colors.primary}
+          onPress={() => navigation.navigate('HabitsNavigator')}
+        />
+        <IconCircleButon
+          nameIcon="calendar"
+          title="Calendario"
+          customStyles={{
+            backgroundColor: colors.white,
+            borderWidth: 3,
+            borderColor: colors.primary,
+          }}
+          customIcon={colors.primary}
+          onPress={() => navigation.navigate('HabitsNavigator')}
+        />
+        <IconCircleButon
+          nameIcon="bar-chart-o"
+          title="Reportes"
+          customStyles={{
+            backgroundColor: colors.white,
+            borderWidth: 3,
+            borderColor: colors.primary,
+          }}
+          customIcon={colors.primary}
+          onPress={() => navigation.navigate('HabitsNavigator')}
+        />
+      </View>
 
-      <Button title="Cerrar Sesión" newStyle={{color: colors.white}} onPress={logOut} />
-    </View>
+      {/* Planes */}
+      <Text style={styles.title}>Planes de estilo de vida</Text>
+    </ScrollView>
   );
 };
+

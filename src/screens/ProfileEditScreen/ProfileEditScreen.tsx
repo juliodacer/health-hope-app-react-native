@@ -1,18 +1,12 @@
-import React, {useState, useEffect, useContext} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  TextInput,
-  Image,
-} from 'react-native';
+import React, {useEffect, useContext} from 'react';
+import {Text, View, ScrollView, TextInput, Image} from 'react-native';
 import {useForm} from '../../hooks/useForm';
 import {Button} from '../../components/Button/Button';
 import {ProfileStackParams} from '../../navigator/ProfileNavigator';
 import {DrawerScreenProps} from '@react-navigation/drawer';
 import {UsersContext} from '../../context/usersContext';
 import {ButtonGradient} from '../../components/ButtonGradient/ButtonGradient';
+import {styles} from './styles';
 
 interface Props
   extends DrawerScreenProps<ProfileStackParams, 'ProfileEditScreen'> {}
@@ -247,25 +241,3 @@ export const ProfileEditScreen = ({navigation, route}: Props) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: 10,
-    marginHorizontal: 20,
-  },
-  label: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  txtInput: {
-    borderWidth: 1,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 20,
-    borderColor: 'rgba(0,0,0,0.2)',
-    height: 45,
-    marginTop: 5,
-    marginBottom: 15,
-  },
-});

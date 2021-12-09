@@ -32,6 +32,7 @@ export const HabitsNavigator = () => {
              <Stack.Screen
                 name="HabitScreen"
                 component={HabitScreen}
+                options={{title: 'Detalles del Hábito'}}
             />
         </Stack.Navigator>
     )

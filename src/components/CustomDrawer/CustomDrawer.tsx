@@ -179,7 +179,7 @@ export const CustomDrawer = ({
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.menuButton}
-                onPress={() => navigation.navigate('ProfileScreen')}>
+                onPress={() => navigation.navigate('ProfileNavigator')}>
                 <AntDesign
                   name="user"
                   size={30}
@@ -210,7 +210,7 @@ export const CustomDrawer = ({
                 />
                 <Text style={styles.menuText}>Staff Médico</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.menuButton} onPress={() => {}}>
+              <TouchableOpacity style={styles.menuButton} onPress={() => navigation.navigate('PlansNavigator')}>
                 <AntDesign
                   name="folder1"
                   size={30}
@@ -349,7 +349,7 @@ export const CustomDrawer = ({
                 />
                 <Text style={styles.menuText}>Planes</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.menuButton} onPress={() => {}}>
+              <TouchableOpacity style={styles.menuButton} onPress={() => navigation.navigate('HabitsNavigator')}>
                 <AntDesign
                   name="heart"
                   size={30}

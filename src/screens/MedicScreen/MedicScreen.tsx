@@ -1,13 +1,14 @@
-import { StackScreenProps } from '@react-navigation/stack'
 import React, { useContext, useEffect } from 'react'
-import { View, Text, ScrollView, TextInput, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, TextInput } from 'react-native';
 import { MedicsStackParams } from '../../navigator/MedicsNavigator'
 import { UsersContext } from '../../context/usersContext';
 import { useForm } from '../../hooks/useForm';
 import { ButtonGradient } from '../../components/ButtonGradient/ButtonGradient';
 import { Button } from '../../components/Button/Button';
+import {styles} from './styles';
+import { DrawerScreenProps } from '@react-navigation/drawer';
 
-interface Props extends StackScreenProps<MedicsStackParams, 'MedicScreen'> {}
+interface Props extends DrawerScreenProps<MedicsStackParams, 'MedicScreen'> {}
 
 export const MedicScreen = ({navigation, route}: Props) => {
 
@@ -18,7 +19,6 @@ export const MedicScreen = ({navigation, route}: Props) => {
   } = route.params;
 
   const {loadUserById, addUser, updateUser} = useContext(UsersContext);
-
   
   const {_id, name2, email2, form, onChange, setFormValue} =
     useForm({
@@ -56,7 +56,6 @@ export const MedicScreen = ({navigation, route}: Props) => {
 //       addHabit(name2, description2)
 //     }
 //   }
-
 
 return (
     <View style={styles.container}>
@@ -114,25 +113,3 @@ return (
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: 10,
-    marginHorizontal: 20,
-  },
-  label: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  txtInput: {
-    borderWidth: 1,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 20,
-    borderColor: 'rgba(0,0,0,0.2)',
-    height: 45,
-    marginTop: 5,
-    marginBottom: 15,
-  },
-});
