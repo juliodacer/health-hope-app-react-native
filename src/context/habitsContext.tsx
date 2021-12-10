@@ -5,10 +5,15 @@ import {Habit, HabitsResponse} from '../interfaces/appInterfaces';
 type HabitsContextProps = {
   habits: Habit[];
   loadHabits: () => Promise<void>;
-  addHabit: (habitName: string, habitDescription: string) => Promise<void>;
-  updateHabit: (
+  addHabit: (
     habitName: string,
+    habitDescription: string,
+    habitPerform: string,
+  ) => Promise<void>;
+  updateHabit: (
     habitId: string,
+    habitName: string,
+    habitDescription: string,
   ) => Promise<void>;
   deleteHabit: (id: string) => Promise<void>;
   loadHabitById: (id: string) => Promise<Habit>;
@@ -30,21 +35,38 @@ export const HabitsProvider = ({children}: any) => {
     setHabits([...resp.data.habits]);
   };
 
-  const addHabit = async (habitName: string, habitDescription: string) => {
-    // console.log('addHabit');
-    // console.log({habitName});
+  const addHabit = async (
+    habitName: string,
+    habitDescription: string,
+    habitPerform: string,
+  ) => {
+    console.log('createHabit');
+    // console.log({habitName, habitDescription});
     const resp = await healthHopeAPI.post<Habit>('/habits', {
       name: habitName,
-      decription: habitDescription
+      decription: habitDescription,
+      perform: habitPerform
+    });
+
+    console.log(resp.data);
+
+    setHabits([...habits, resp.data]);
+  };
+
+  const updateHabit = async (
+    habitId: string,
+    habitName: string,
+    habitDescription: string,
+  ) => {
+    console.log('updateHabit');
+    console.log({habitId, habitName, habitDescription});
+
+    const resp = await healthHopeAPI.put<Habit>(`habits/${habitId}`, {
+      name: habitName,
+      decription: habitDescription,
     });
 
     setHabits([...habits, resp.data]);
-
-  };
-
-  const updateHabit = async (habitName: string, habitId: string) => {
-    console.log('updateHabit');
-    console.log({habitName, habitId});
   };
 
   const deleteHabit = async (id: string) => {};

@@ -6,7 +6,7 @@ import { HabitScreen } from '../screens/HabitScreen/HabitScreen';
 
 export type HabitsStackParams = {
     HabitsScreen: undefined
-    HabitScreen: { id?: string, name?: string, description?: string, img?: string}
+    HabitScreen: { id?: string, name?: string, description?: string, img?: string, perform?: string}
 }
 
 const Stack = createStackNavigator();

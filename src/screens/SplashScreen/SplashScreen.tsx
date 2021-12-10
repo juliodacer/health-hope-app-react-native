@@ -3,22 +3,18 @@ import {
   View,
   Text,
   TouchableOpacity,
-  StatusBar,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import {useNavigation} from '@react-navigation/core';
 import LinearGradient from 'react-native-linear-gradient';
-import {useTheme} from '@react-navigation/native';
 import {styles} from './styles';
+import { colors } from '../../theme/colors';
 
 export const SplashScreen = () => {
   const navigation = useNavigation();
 
-  const {colors} = useTheme();
-
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor="#009387" barStyle="light-content" />
       <View style={styles.header}>
         <Animatable.Image
           animation="bounceIn"
@@ -32,7 +28,7 @@ export const SplashScreen = () => {
         style={[
           styles.footer,
           {
-            backgroundColor: colors.background,
+            backgroundColor: colors.gray2,
           },
         ]}
         animation="fadeInUpBig">
@@ -40,7 +36,7 @@ export const SplashScreen = () => {
           style={[
             styles.title,
             {
-              color: colors.text,
+              color: colors.black
             },
           ]}>
           Comienza una nueva vida con el plan de estilo de vida saludable
@@ -49,7 +45,7 @@ export const SplashScreen = () => {
         <View style={styles.button}>
           <TouchableOpacity onPress={() => navigation.navigate('LoginScreen')}>
             <LinearGradient
-              colors={['#08d4c4', '#01ab9d']}
+              colors={[colors.primaryLight, colors.primary]}
               style={styles.signIn}>
               <Text style={styles.textSign}>Comenzar</Text>
               {/* <MaterialIcons 

@@ -66,7 +66,7 @@ export const HabitsScreen = ({navigation}: Props) => {
                 id: item._id,
                 name: item.name,
                 description: item.description,
-                img: item.img,
+                img: item.img
               })
             }>
             <Text style={styles.habitName}>{item.name}</Text>

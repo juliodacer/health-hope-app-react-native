@@ -1,7 +1,12 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {createContext, useEffect, useReducer} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import healthHopeAPI from '../api/healthHopeAPI';
-import { LoginData, LoginResponse, User, RegisterData } from '../interfaces/appInterfaces';
+import {
+  LoginData,
+  LoginResponse,
+  User,
+  RegisterData,
+} from '../interfaces/appInterfaces';
 import {authReducer, AuthState} from './authReducer';
 
 type AuthContextProps = {
@@ -10,7 +15,7 @@ type AuthContextProps = {
   user: User | null;
   status: 'checking' | 'authenticated' | 'not-authenticated';
   signIn: (loginData: LoginData) => void;
-  signUp: (registerData :RegisterData) => void;
+  signUp: (registerData: RegisterData) => void;
   logOut: () => void;
   removeError: () => void;
 };
@@ -27,31 +32,31 @@ export const AuthContext = createContext({} as AuthContextProps);
 export const AuthProvider = ({children}: any) => {
   const [state, dispatch] = useReducer(authReducer, authInitialState);
 
-  // useEffect(() => {
-  //   checkToken();
-  // }, []);
+  useEffect(() => {
+    checkToken();
+  }, []);
 
-  // const checkToken = async () => {
-  //   const token = await AsyncStorage.getItem('token');
+  const checkToken = async () => {
+    const token = await AsyncStorage.getItem('token');
 
-  //   // No token, no autenticado
-  //   if (!token) return dispatch({type: 'notAuthenticated'});
+    // No token, no autenticado
+    if (!token) return dispatch({type: 'notAuthenticated'});
 
-  //   // Hay token
-  //   const resp = await healthHopeAPI.get('/auth');
+    // Hay token
+    const resp = await healthHopeAPI.get('/auth');
 
-  //   if( resp.status !== 200) {
-  //     return dispatch({ type: 'notAuthenticated'});
-  //   }
+    if (resp.status !== 200) {
+      return dispatch({type: 'notAuthenticated'});
+    }
 
-  //   dispatch({
-  //     type: 'signUp',
-  //     payload: {
-  //       token: resp.data.token,
-  //       user: resp.data.user,
-  //     },
-  //   });
-  //};
+    dispatch({
+      type: 'signUp',
+      payload: {
+        token: resp.data.token,
+        user: resp.data.user,
+      },
+    });
+  };
 
   const signIn = async ({email, password}: LoginData) => {
     try {
@@ -68,25 +73,31 @@ export const AuthProvider = ({children}: any) => {
         },
       });
 
-      console.log(data)
-      // await AsyncStorage.setItem('token', data.token);
+      console.log(data);
+      await AsyncStorage.setItem('token', data.token);
     } catch (err: any) {
       console.log(err.response.data.msg);
       dispatch({
         type: 'addError',
-        payload: err.response.data.msg || 'Información incorrecta'
+        payload: err.response.data.msg || 'Información incorrecta',
       });
     }
   };
 
-  const signUp = async ({name, email, password,  gender, role}: RegisterData) => {
+  const signUp = async ({
+    name,
+    email,
+    password,
+    gender,
+    role,
+  }: RegisterData) => {
     try {
       const {data} = await healthHopeAPI.post<LoginResponse>('/users', {
         name,
         email,
         password,
         gender,
-        role
+        role,
       });
 
       dispatch({
@@ -97,13 +108,13 @@ export const AuthProvider = ({children}: any) => {
         },
       });
 
-      console.log(data)
-      // await AsyncStorage.setItem('token', data.token);
+      console.log(data);
+      await AsyncStorage.setItem('token', data.token);
     } catch (err: any) {
       console.log(err.response.data);
       dispatch({
         type: 'addError',
-        payload: err.response.data.errors[0].msg || 'Información incorrecta'
+        payload: err.response.data.errors[0].msg || 'Información incorrecta',
       });
     }
   };

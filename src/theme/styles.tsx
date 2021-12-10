@@ -30,12 +30,3 @@ export const stylesTheme = StyleSheet.create({
     paddingBottom: 5,
   },
 });
-
-
-
-// export default {
-//   STYLES,
-//   COLORS,
-//   width,
-//   height
-// };

@@ -20,7 +20,7 @@ export const HomeMedicalScreen = ({navigation}: Props) => {
       {/* Slider de imágenes */}
       <SliderImg />
 
-      {/* Categoria de opciones */}
+      {/* Participantes */}
       <View style={styles.categoryContainer}>
         <IconCircleButon
           nameIcon="users"

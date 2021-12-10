@@ -1,11 +1,5 @@
 import React, {useEffect, useContext} from 'react';
-import {
-  Text,
-  View,
-  ScrollView,
-  TextInput,
-  Image,
-} from 'react-native';
+import {Text, View, ScrollView, TextInput, Image} from 'react-native';
 import {HabitsStackParams} from '../../navigator/HabitsNavigator';
 import {ButtonGradient} from '../../components/ButtonGradient/ButtonGradient';
 import {useForm} from '../../hooks/useForm';
@@ -13,24 +7,38 @@ import {HabitsContext} from '../../context/habitsContext';
 import {Button} from '../../components/Button/Button';
 import {DrawerScreenProps} from '@react-navigation/drawer';
 import {AuthContext} from '../../context/authContext';
-
-import { styles } from './styles'
+import {styles} from './styles';
 
 interface Props extends DrawerScreenProps<HabitsStackParams, 'HabitScreen'> {}
 
 export const HabitScreen = ({navigation, route}: Props) => {
-  const {id = '', name = '', description = '', img = ''} = route.params;
+  const {
+    id = '',
+    name = '',
+    description = '',
+    img = '',
+    perform = '',
+  } = route.params;
 
   const {user} = useContext(AuthContext);
   const {loadHabitById, addHabit, updateHabit} = useContext(HabitsContext);
 
-  const {_id, name2, description2, img2, form, onChange, setFormValue} =
-    useForm({
-      _id: id,
-      name2: name,
-      description2: description,
-      img2: img,
-    });
+  const {
+    _id,
+    name2,
+    description2,
+    perform2,
+    img2,
+    form,
+    onChange,
+    setFormValue,
+  } = useForm({
+    _id: id,
+    name2: name,
+    description2: description,
+    img2: img,
+    perform2: perform,
+  });
 
   // useEffect(() => {
   //   navigation.setOptions({
@@ -50,14 +58,15 @@ export const HabitScreen = ({navigation, route}: Props) => {
       name2: name,
       img2: habit.img || '',
       description2: habit.description,
+      perform2: habit.perform,
     });
   };
 
   const saveOrUpdate = () => {
     if (id.length > 0) {
-      updateHabit(name2, _id);
+      updateHabit(id, name2, description2);
     } else {
-      addHabit(name2, description2);
+      addHabit(name2, description2, perform2);
     }
   };
 
@@ -92,6 +101,14 @@ export const HabitScreen = ({navigation, route}: Props) => {
               style={styles.txtInput}
               value={description2}
               onChangeText={value => onChange(value, 'description2')}
+            />
+
+            <Text style={styles.label}>Progreso</Text>
+            <TextInput
+              placeholder="Prgreso"
+              style={styles.txtInput}
+              value={perform2}
+              onChangeText={value => onChange(value, 'perform2')}
             />
 
             <Text style={styles.label}>Subir imagen:</Text>
