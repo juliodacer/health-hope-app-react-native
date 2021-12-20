@@ -81,6 +81,11 @@ export const DrawerNavigator = () => {
                 options={{title: 'Calendario'}}
                 component={CalendarNavigator}
               />
+               <Drawer.Screen
+                name="ReportNavigator"
+                options={{title: 'Reporte'}}
+                component={ReportNavigator}
+              />
             </>
           ) : user?.role === 'USER_ROLE' ? (
             <>
@@ -158,6 +163,11 @@ export const DrawerNavigator = () => {
                 name="CalendarNavigator"
                 options={{title: 'Calendario'}}
                 component={CalendarNavigator}
+              />
+               <Drawer.Screen
+                name="ReportNavigator"
+                options={{title: 'Reporte'}}
+                component={ReportNavigator}
               />
             </>
           )}

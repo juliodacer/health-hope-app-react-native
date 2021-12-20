@@ -4,7 +4,7 @@ import {
   DrawerContentScrollView,
 } from '@react-navigation/drawer';
 import React, {useContext} from 'react';
-import {View, Text, Image, TouchableOpacity, StatusBarIOS} from 'react-native';
+import {View, Text, Image, TouchableOpacity } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Octicons from 'react-native-vector-icons/Octicons';
 import {colors} from '../../theme/colors';
@@ -384,7 +384,7 @@ export const CustomDrawer = ({
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.menuButton}
-                onPress={() => navigation.navigate('CalendarNavigation')}>
+                onPress={() => navigation.navigate('ReportNavigator')}>
                 <AntDesign
                   name="barschart"
                   size={30}

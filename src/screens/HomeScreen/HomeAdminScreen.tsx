@@ -52,7 +52,7 @@ export const HomeAdminScreen = ({navigation}: Props) => {
         <IconCircleButon
           nameIcon="bar-chart-o"
           title="Reportes"
-          onPress={() => navigation.navigate('HabitsNavigator')}
+          onPress={() => navigation.navigate('ReportNavigator')}
         />
       </View>
 

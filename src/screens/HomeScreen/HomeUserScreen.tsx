@@ -94,7 +94,7 @@ export const HomeUserScreen = ({navigation}: Props) => {
             borderColor: colors.primaryLight,
           }}
           customIcon={colors.primaryLight}
-          onPress={() => navigation.navigate('HabitsNavigator')}
+          onPress={() => navigation.navigate('ReportNavigator')}
         />
       </View>
 

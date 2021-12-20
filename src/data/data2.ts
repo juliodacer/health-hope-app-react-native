@@ -27,4 +27,8 @@ export const dataTwo = [
         habit: 7,
         perform: 3,
     },
+    {
+        habit: 8,
+        perform: 1,
+    },
 ];
