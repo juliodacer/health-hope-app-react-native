@@ -1,5 +1,5 @@
-import React, {useContext, useEffect} from 'react';
-import {View} from 'react-native';
+import React, {useContext, useEffect, useState} from 'react';
+import {View, ScrollView, RefreshControl} from 'react-native';
 import {
   Avatar,
   Title,
@@ -10,6 +10,7 @@ import {
 
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Entypo from 'react-native-vector-icons/Entypo';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import Share from 'react-native-share';
@@ -22,6 +23,8 @@ import {colors} from '../../theme/colors';
 import {DrawerScreenProps} from '@react-navigation/drawer';
 import {ProfileStackParams} from '../../navigator/ProfileNavigator';
 import {IconDrawer} from '../../components/IconDrawer/IconDrawer';
+import {DateUserCard} from '../../components/DatesUserCard/DateUserCard';
+import {UsersContext} from '../../context/usersContext';
 
 interface Props
   extends DrawerScreenProps<ProfileStackParams, 'ProfileScreen'> {}
@@ -142,31 +145,56 @@ export const ProfileScreen = ({navigation}: Props) => {
       </View>
 
       {user?.role === 'USER_ROLE' && (
-        <View style={styles.infoBoxWrapper}>
-          <View
-            style={[
-              styles.infoBox,
-              {
-                borderRightColor: '#dddddd',
-                borderRightWidth: 1,
-              },
-            ]}>
+        <View>
+          <ScrollView
+            style={{flexDirection: 'row', marginBottom: 10}}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}>
             {user?.age ? (
-              <Title>{user?.age}</Title>
+              <DateUserCard
+                content={user?.age}
+                iconName="fingerprint"
+                description="Edad"
+              />
             ) : (
-              <Title style={styles.date}>No indicó</Title>
+              <DateUserCard
+                content="No indicó"
+                iconName="fingerprint"
+                description="Edad"
+                newStyle={{fontSize: 18}}
+              />
             )}
-            <Caption style={styles.caption}>Edad</Caption>
-          </View>
-          <View style={styles.infoBox}>
-            {/* Peso */}
+
             {user?.weight ? (
-              <Title style={styles.date}>{user?.weight}</Title>
+              <DateUserCard
+                content={user?.weight}
+                iconName="data-usage"
+                description="Peso"
+              />
             ) : (
-              <Title>No indicó</Title>
+              <DateUserCard
+                content="No indicó"
+                iconName="data-usage"
+                description="Peso"
+                newStyle={{fontSize: 18}}
+              />
             )}
-            <Caption style={styles.caption}>Peso</Caption>
-          </View>
+
+            {user?.height ? (
+              <DateUserCard
+                content={user?.height}
+                iconName="sports-handball"
+                description="Estatura"
+              />
+            ) : (
+              <DateUserCard
+                content="No indicó"
+                iconName="sports-handball"
+                newStyle={{fontSize: 18}}
+                description="Estatura"
+              />
+            )}
+          </ScrollView>
         </View>
       )}
 

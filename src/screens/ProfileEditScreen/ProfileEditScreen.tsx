@@ -7,11 +7,13 @@ import {DrawerScreenProps} from '@react-navigation/drawer';
 import {UsersContext} from '../../context/usersContext';
 import {ButtonGradient} from '../../components/ButtonGradient/ButtonGradient';
 import {styles} from './styles';
+import {AuthContext} from '../../context/authContext';
 
 interface Props
   extends DrawerScreenProps<ProfileStackParams, 'ProfileEditScreen'> {}
 
 export const ProfileEditScreen = ({navigation, route}: Props) => {
+  const {user} = useContext(AuthContext);
   const {loadUserById, updateUser, addUser} = useContext(UsersContext);
 
   const {
@@ -22,6 +24,7 @@ export const ProfileEditScreen = ({navigation, route}: Props) => {
     gender = '',
     age = 0,
     weight = 0.0,
+    height = 0.0,
     birthDate = '',
     cell = '',
     img = '',
@@ -38,6 +41,7 @@ export const ProfileEditScreen = ({navigation, route}: Props) => {
     gender2,
     age2,
     weight2,
+    height2,
     birthDate2,
     cell2,
     address2,
@@ -55,6 +59,7 @@ export const ProfileEditScreen = ({navigation, route}: Props) => {
     gender2: gender,
     age2: age,
     weight2: weight,
+    height2: height,
     birthDate2: birthDate,
     cell2: cell,
     address2: address,
@@ -83,7 +88,8 @@ export const ProfileEditScreen = ({navigation, route}: Props) => {
       password2: user.password,
       gender2: user.gender || '',
       age2: user.age || 0,
-      weight2: user.weight || 0,
+      weight2: user.weight || 0.0,
+      height2: user.height || 0.0,
       birthDate2: user.birthDate || '',
       cell2: user.cell || '',
       address2: user.address || '',
@@ -101,8 +107,9 @@ export const ProfileEditScreen = ({navigation, route}: Props) => {
         email2,
         password2,
         gender2,
-        age2,
-        weight2,
+        age2.valueOf(),
+        weight2.valueOf(),
+        height2.valueOf(),
         birthDate2,
         cell2,
         address2,
@@ -117,8 +124,9 @@ export const ProfileEditScreen = ({navigation, route}: Props) => {
         email2,
         password2,
         gender2,
-        age2,
-        weight2,
+        age2.valueOf(),
+        weight.valueOf(),
+        height2.valueOf(),
         birthDate2,
         cell2,
         address2,
@@ -130,46 +138,45 @@ export const ProfileEditScreen = ({navigation, route}: Props) => {
   };
 
   return (
-    <View style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        {img.length > 0 && (
-          <Image
-            source={{uri: img}}
-            style={{
-              marginTop: 20,
-              width: '100%',
-              height: 300,
-            }}
-          />
-        )}
-
-        <Text style={styles.label}>Nombre</Text>
-        <TextInput
-          placeholder="Nombre del Hábito"
-          style={styles.txtInput}
-          value={name2}
-          onChangeText={value => onChange(value, 'name2')}
+    <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
+      {img.length > 0 && (
+        <Image
+          source={{uri: img}}
+          style={{
+            marginTop: 20,
+            width: '100%',
+            height: 300,
+          }}
         />
+      )}
 
-        <Text style={styles.label}>Email</Text>
-        <TextInput
-          placeholder="Descripción"
-          style={styles.txtInput}
-          value={email2}
-          onChangeText={value => onChange(value, 'email2')}
-        />
+      <Text style={styles.label}>Nombre</Text>
+      <TextInput
+        placeholder="Nombre del Hábito"
+        style={styles.txtInput}
+        value={name2}
+        onChangeText={value => onChange(value, 'name2')}
+      />
 
-        <Text style={styles.label}>Contraseña</Text>
-        <TextInput
-          placeholder="Contraseña"
-          style={styles.txtInput}
-          value={password2}
-          onChangeText={value => onChange(value, 'password2')}
-        />
+      <Text style={styles.label}>Email</Text>
+      <TextInput
+        placeholder="Descripción"
+        style={styles.txtInput}
+        value={email2}
+        onChangeText={value => onChange(value, 'email2')}
+      />
 
-        {/* Genero */}
+      <Text style={styles.label}>Contraseña</Text>
+      <TextInput
+        placeholder="Contraseña"
+        style={styles.txtInput}
+        value={password2}
+        onChangeText={value => onChange(value, 'password2')}
+      />
 
-        {/* <Text style={styles.label}>Edad</Text>
+      {/* Genero */}
+
+      {/* <Text style={styles.label}>Edad</Text>
         <TextInput
           placeholder="Edad"
           style={styles.txtInput}
@@ -177,53 +184,83 @@ export const ProfileEditScreen = ({navigation, route}: Props) => {
           onChangeText={value => onChange(value, 'age2')}
         /> */}
 
-        <Text style={styles.label}>Fecha de nacimiento</Text>
-        <TextInput
-          placeholder="Nacimiento"
-          style={styles.txtInput}
-          value={birthDate2}
-          onChangeText={value => onChange(value, 'birthDate2')}
+      <Text style={styles.label}>Fecha de nacimiento</Text>
+      <TextInput
+        placeholder="Nacimiento"
+        style={styles.txtInput}
+        value={birthDate2}
+        onChangeText={value => onChange(value, 'birthDate2')}
+      />
+
+      <Text style={styles.label}>Número de celular</Text>
+      <TextInput
+        placeholder="Celular"
+        style={styles.txtInput}
+        value={cell2}
+        onChangeText={value => onChange(value, 'cell2')}
+      />
+
+      <Text style={styles.label}>Dirección</Text>
+      <TextInput
+        placeholder="Dirección"
+        style={styles.txtInput}
+        value={address2}
+        onChangeText={value => onChange(value, 'address2')}
+      />
+
+      {user?.role === 'USER_ROLE' && (
+        <>
+          <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+            <Text style={{...styles.label, margin: 10 }}>Edad</Text>
+            <TextInput
+              placeholder="Edad"
+              style={{...styles.txtInput, marginRight: 15}}
+              value={age2.toString()}
+              onChangeText={value => onChange(value, 'age2')}
+            />
+
+            <Text style={{...styles.label, margin: 10 }}>Peso</Text>
+            <TextInput
+              placeholder="Peso"
+              style={{...styles.txtInput, marginRight: 15}}
+              value={weight2.toString()}
+              onChangeText={value => onChange(value, 'weight2')}
+            />
+
+            <Text style={{...styles.label, margin: 10 }}>Estatura</Text>
+            <TextInput
+              placeholder="Estatura"
+              style={{...styles.txtInput, marginRight: 15}}
+              value={height2.toString()}
+              onChangeText={value => onChange(value, 'height2')}
+            />
+          </View>
+        </>
+      )}
+
+      {/* Planes */}
+      {/* Picker Selector */}
+      <Text style={[styles.label]}>Subir imagen:</Text>
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-around',
+          marginBottom: 10,
+        }}>
+        <Button
+          title="Galeria"
+          onPress={() => {}}
+          newStyle={{width: '45%', marginRight: 10}}
         />
-
-        <Text style={styles.label}>Número de celular</Text>
-        <TextInput
-          placeholder="Celular"
-          style={styles.txtInput}
-          value={cell2}
-          onChangeText={value => onChange(value, 'cell2')}
+        <Button
+          title="Cámara"
+          onPress={() => {}}
+          newStyle={{width: '45%', marginLeft: 10}}
         />
+      </View>
 
-        <Text style={styles.label}>Dirección</Text>
-        <TextInput
-          placeholder="Dirección"
-          style={styles.txtInput}
-          value={address2}
-          onChangeText={value => onChange(value, 'address2')}
-        />
-
-        {/* Planes */}
-        {/* Picker Selector */}
-        <Text style={[styles.label]}>Subir imagen:</Text>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-around',
-            marginBottom: 10,
-          }}>
-          <Button
-            title="Galeria"
-            onPress={() => {}}
-            newStyle={{width: '45%', marginRight: 10}}
-          />
-          <Button
-            title="Cámara"
-            onPress={() => {}}
-            newStyle={{width: '45%', marginLeft: 10}}
-          />
-        </View>
-
-        {/* <Picker
+      {/* <Picker
           selectedValue={selectedItem}
           onValueChange={(itemValue, itemIndex) => setSelectedItem(itemValue)}>
           {plans.map(p => (
@@ -234,10 +271,9 @@ export const ProfileEditScreen = ({navigation, route}: Props) => {
           ))}
         </Picker> */}
 
-        <ButtonGradient title="Guardar" onPress={saveOrUpdate} />
+      <ButtonGradient title="Guardar" onPress={saveOrUpdate} />
 
-        {/* <Text>{JSON.stringify(form, null, 5)}</Text> */}
-      </ScrollView>
-    </View>
+      {/* <Text>{JSON.stringify(form, null, 5)}</Text> */}
+    </ScrollView>
   );
 };

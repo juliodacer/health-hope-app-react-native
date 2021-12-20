@@ -108,7 +108,7 @@ export const CustomDrawer = ({
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.menuButton}
-                onPress={() => navigation.navigate('CalendarNavigator')}>
+                onPress={() => navigation.navigate('ReportNavigator')}>
                 <AntDesign
                   name="barschart"
                   size={30}
@@ -119,7 +119,7 @@ export const CustomDrawer = ({
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.menuButton}
-                onPress={() => navigation.navigate('HabitsNavigator')}>
+                onPress={() => navigation.navigate('ReportNavigator')}>
                 <AntDesign
                   name="wechat"
                   size={30}

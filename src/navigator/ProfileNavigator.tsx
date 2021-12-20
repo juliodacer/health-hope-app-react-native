@@ -13,6 +13,7 @@ export type ProfileStackParams = {
         gender?: string,
         age?: number;
         weight?: number;
+        height?: number;
         birthDate?: string;
         cell?: string;
         address?: string;

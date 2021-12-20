@@ -15,6 +15,7 @@ import {CustomDrawer} from '../components/CustomDrawer/CustomDrawer';
 import {PlansNavigator} from './PlansNavigator';
 import {ProfileNavigator} from './ProfileNavigator';
 import {CalendarNavigator} from './CalendarNavigator';
+import { ReportNavigator } from './ReportNavigator';
 
 const Drawer = createDrawerNavigator();
 
@@ -114,6 +115,11 @@ export const DrawerNavigator = () => {
                 name="CalendarNavigator"
                 options={{title: 'Calendario'}}
                 component={CalendarNavigator}
+              />
+              <Drawer.Screen
+                name="ReportNavigator"
+                options={{title: 'Reporte'}}
+                component={ReportNavigator}
               />
             </>
           ) : (
