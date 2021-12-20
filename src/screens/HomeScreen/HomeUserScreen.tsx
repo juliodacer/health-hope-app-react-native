@@ -1,17 +1,22 @@
-import React from 'react';
-import {View, Text, StyleSheet, ScrollView} from 'react-native';
+import React, { useContext } from 'react';
+import {View, Text, StyleSheet, ScrollView, FlatList} from 'react-native';
 import IconCircleButon from '../../components/IconCircleButton/IconCircleButon';
 import {SliderImg} from '../../components/SliderImg/SliderImg';
 import {colors} from '../../theme/colors';
 import {IconDrawer} from '../../components/IconDrawer/IconDrawer';
 import {DrawerScreenProps} from '@react-navigation/drawer';
 import {styles} from './styles'
+import { PlansContext } from '../../context/plansContext';
+import CardWrapper from '../../components/CardWrapper/CardWrapper';
 
 interface Props extends DrawerScreenProps<any, any> {}
 
 export const HomeUserScreen = ({navigation}: Props) => {
+
+  const {plans, loadPlans} = useContext(PlansContext);
+
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <Text style={{...styles.title, fontSize: 22}}>Bienvenido</Text>
       <View style={{position: 'absolute', right: 10, top: 5}}>
         <IconDrawer onPress={() => navigation.toggleDrawer()} />
@@ -95,7 +100,36 @@ export const HomeUserScreen = ({navigation}: Props) => {
 
       {/* Planes */}
       <Text style={styles.title}>Planes de estilo de vida</Text>
-    </ScrollView>
+
+      <View style={{flex: 1, marginTop: 15, marginHorizontal: 5, backgroundColor: '#F5F5F5'}}>
+      <FlatList
+        data={plans}
+        keyExtractor={p => p._id}
+        contentContainerStyle={{padding: 15}}
+        showsVerticalScrollIndicator={false}
+        renderItem={({item}) => {
+          return (
+            <CardWrapper
+              plan={item}
+              onPress={() =>
+                navigation.navigate('PlanScreen', {
+                  id: item._id,
+                  name: item.name,
+                  description: item.description,
+                  img: item.img,
+                  startDate: item.startDate,
+                  finishDate: item.finishDate,
+                  status: item.status,
+                  user: item.user,
+                })
+              }
+            />
+          );
+        }}
+      />
+    </View>
+
+    </View>
   );
 };
 
