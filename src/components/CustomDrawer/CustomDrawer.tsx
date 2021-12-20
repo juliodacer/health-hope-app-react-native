@@ -17,6 +17,10 @@ export const CustomDrawer = ({
 }: DrawerContentComponentProps<DrawerContentOptions>) => {
   const {user, logOut} = useContext(AuthContext);
 
+  const cerrar = () => {
+    navigation.closeDrawer()
+  }
+
   return (
     <>
       {user?.role === 'USER_ROLE' ? (
@@ -93,7 +97,7 @@ export const CustomDrawer = ({
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.menuButton}
-                onPress={() => navigation.navigate('HabitsNavigator')}>
+                onPress={() => navigation.navigate('CalendarNavigator')}>
                 <AntDesign
                   name="calendar"
                   size={30}
@@ -104,7 +108,7 @@ export const CustomDrawer = ({
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.menuButton}
-                onPress={() => navigation.navigate('HabitsNavigator')}>
+                onPress={() => navigation.navigate('CalendarNavigator')}>
                 <AntDesign
                   name="barschart"
                   size={30}
@@ -232,7 +236,7 @@ export const CustomDrawer = ({
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.menuButton}
-                onPress={() => navigation.navigate('HabitsNavigator')}>
+                onPress={() => navigation.navigate('CalendarNavigator')}>
                 <AntDesign
                   name="calendar"
                   size={30}
@@ -243,7 +247,7 @@ export const CustomDrawer = ({
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.menuButton}
-                onPress={() => navigation.navigate('HabitsNavigator')}>
+                onPress={() => navigation.navigate('CalendarNavigator')}>
                 <AntDesign
                   name="barschart"
                   size={30}
@@ -358,7 +362,7 @@ export const CustomDrawer = ({
                 />
                 <Text style={styles.menuText}>Hábitos</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.menuButton} onPress={() => {}}>
+              <TouchableOpacity style={styles.menuButton} onPress={() => navigation.navigate("CalendarNavigation")}>
                 <AntDesign
                   name="calendar"
                   size={30}
@@ -367,7 +371,7 @@ export const CustomDrawer = ({
                 />
                 <Text style={styles.menuText}>Calendario</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.menuButton} onPress={() => {}}>
+              <TouchableOpacity style={styles.menuButton} onPress={() => navigation.navigate("CalendarNavigation")}>
                 <AntDesign
                   name="barschart"
                   size={30}
@@ -395,7 +399,7 @@ export const CustomDrawer = ({
               paddingTop: 5,
               paddingBottom: 10,
             }}>
-            <TouchableOpacity style={styles.menuButton} onPress={logOut}>
+            <TouchableOpacity style={styles.menuButton} onPress={() => {logOut(); cerrar() }}>
               <Octicons
                 name="sign-out"
                 size={30}

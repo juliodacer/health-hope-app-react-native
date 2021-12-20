@@ -5,10 +5,18 @@ import {Plan, PlansResponse} from '../interfaces/appInterfaces';
 type plansContextProps = {
   plans: Plan[];
   loadPlans: () => Promise<void>;
-  addPlan: (PlanName: string, PlanDescription: string) => Promise<void>;
+  addPlan: (
+    PlanName: string,
+    PlanDescription: string,
+    planStartDate: Date,
+    planFinishDate: Date,
+  ) => Promise<void>;
   updatePlan: (
-    planName: string,
     planId: string,
+    planName: string,
+    planDescription: string,
+    planStartDate: Date,
+    planFinishDate: Date,
   ) => Promise<void>;
   deletePlan: (id: string) => Promise<void>;
   loadPlanById: (id: string) => Promise<Plan>;
@@ -30,21 +38,40 @@ export const PlansProvider = ({children}: any) => {
     setPlans([...resp.data.plans]);
   };
 
-  const addPlan = async (planName: string, planDescription: string) => {
+  const addPlan = async (planName: string, planDescription: string, planStartDate: Date,
+    planFinishDate: Date) => {
     // console.log('addHabit');
     // console.log({habitName});
     const resp = await healthHopeAPI.post<Plan>('/plans', {
       name: planName,
-      decription: planDescription
+      decription: planDescription,
+      startDate: planStartDate,
+      finishDate: planFinishDate
+    });
+
+    console.log(resp.data);
+
+    setPlans([...plans, resp.data]);
+  };
+
+  const updatePlan = async (
+    planName: string,
+    planId: string,
+    planDescription: string,
+    planStartDate: Date,
+    planFinishDate: Date
+  ) => {
+    console.log('updatePlan');
+    console.log({planName, planId, planDescription});
+
+    const resp = await healthHopeAPI.put<Plan>(`plans/${planId}`, {
+      name: planName,
+      decription: planDescription,
+      startDate: planStartDate,
+      finishDate: planFinishDate
     });
 
     setPlans([...plans, resp.data]);
-
-  };
-
-  const updatePlan = async (planName: string, planId: string) => {
-    console.log('updatePlan');
-    console.log({planName, planId});
   };
 
   const deletePlan = async (id: string) => {};

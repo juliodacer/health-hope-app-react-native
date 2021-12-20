@@ -47,7 +47,7 @@ export const HomeAdminScreen = ({navigation}: Props) => {
         <IconCircleButon
           nameIcon="calendar"
           title="Calendario"
-          onPress={() => navigation.navigate('HabitsNavigator')}
+          onPress={() => navigation.navigate('CalendarNavigator')}
         />
         <IconCircleButon
           nameIcon="bar-chart-o"

@@ -13,7 +13,7 @@ import {IconDrawer} from '../../components/IconDrawer/IconDrawer';
 import {DrawerScreenProps} from '@react-navigation/drawer';
 import {AuthContext} from '../../context/authContext';
 
-import {styles} from './styles'
+import {styles} from './styles';
 
 interface Props extends DrawerScreenProps<HabitsStackParams, 'HabitsScreen'> {}
 
@@ -66,7 +66,7 @@ export const HabitsScreen = ({navigation}: Props) => {
                 id: item._id,
                 name: item.name,
                 description: item.description,
-                img: item.img
+                img: item.img,
               })
             }>
             <Text style={styles.habitName}>{item.name}</Text>
@@ -83,4 +83,3 @@ export const HabitsScreen = ({navigation}: Props) => {
     </View>
   );
 };
-

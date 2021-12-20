@@ -7,16 +7,19 @@ import {colors} from '../../theme/colors';
 interface ButtonGradientProps {
   title: string;
   onPress?: () => void;
+  newStyle?: Object;
 }
 
-export const ButtonGradient = ({title, onPress}: ButtonGradientProps) => {
+export const ButtonGradient = ({
+  title,
+  onPress,
+  newStyle,
+}: ButtonGradientProps) => {
   return (
     <TouchableOpacity
-        onPress={onPress}
-     //   onPress={() => {loginHandle( data.username, data.password )}}
-      style={styles.containerButton}
-     
-    >
+      onPress={onPress}
+      //   onPress={() => {loginHandle( data.username, data.password )}}
+      style={[styles.containerButton, newStyle]}>
       <LinearGradient
         colors={[colors.primaryLight, colors.primary]}
         style={styles.containerButton}>

@@ -14,6 +14,7 @@ import {HabitsNavigator} from './HabitsNavigator';
 import {CustomDrawer} from '../components/CustomDrawer/CustomDrawer';
 import {PlansNavigator} from './PlansNavigator';
 import {ProfileNavigator} from './ProfileNavigator';
+import {CalendarNavigator} from './CalendarNavigator';
 
 const Drawer = createDrawerNavigator();
 
@@ -21,11 +22,9 @@ export const DrawerNavigator = () => {
   const {status, user} = useContext(AuthContext);
 
   return (
-    <Drawer.Navigator
-      // drawerType="slide"
-      drawerContent={props => <CustomDrawer {...props} />}>
+    <>
       {status !== 'authenticated' ? (
-        <>
+        <Drawer.Navigator>
           <Drawer.Screen
             name="SplashScreen"
             component={SplashScreen}
@@ -41,104 +40,123 @@ export const DrawerNavigator = () => {
             component={RegisterScreen}
             options={{gestureEnabled: false}}
           />
-        </>
-      ) : user?.role === 'ADMIN_ROLE' ? (
-        <>
-          <Drawer.Screen
-            name="HomeAdminScreen"
-            options={{title: 'Inicio'}}
-            component={HomeAdminScreen}
-          />
-          <Drawer.Screen
-            name="ProfileNavigator"
-            options={{title: 'Perfil'}}
-            component={ProfileNavigator}
-          />
-          <Drawer.Screen
-            name="ParticipantsNavigator"
-            options={{title: 'Participantes'}}
-            component={ParticipantsNavigator}
-          />
-          <Drawer.Screen
-            name="MedicsNavigator"
-            options={{title: 'Staff Médico'}}
-            component={MedicsNavigator}
-          />
-          <Drawer.Screen
-            name="PlansNavigator"
-            options={{title: 'Planes Saludables'}}
-            component={PlansNavigator}
-          />
-          <Drawer.Screen
-            name="HabitsNavigator"
-            options={{title: 'Hábitos'}}
-            component={HabitsNavigator}
-          />
-        </>
-      ) : user?.role === 'USER_ROLE' ? (
-        <>
-          <Drawer.Screen name="HomeUserScreen" component={HomeUserScreen} />
-
-          <Drawer.Screen
-            name="ProfileNavigator"
-            options={{title: 'Perfil'}}
-            component={ProfileNavigator}
-          />
-          <Drawer.Screen
-            name="ParticipantsNavigator"
-            options={{title: 'Participantes'}}
-            component={ParticipantsNavigator}
-          />
-          <Drawer.Screen
-            name="MedicsNavigator"
-            options={{title: 'Staff Médico'}}
-            component={MedicsNavigator}
-          />
-          <Drawer.Screen
-            name="PlansNavigator"
-            options={{title: 'Planes Saludables'}}
-            component={PlansNavigator}
-          />
-           <Drawer.Screen
-            name="HabitsNavigator"
-            options={{title: 'Hábitos'}}
-            component={HabitsNavigator}
-          />
-        </>
+        </Drawer.Navigator>
       ) : (
-        <>
-          {/* <Stack.Screen name="HabitsNavigator" component={HabitsNavigator} /> */}
-          <Drawer.Screen
-            name="HomeMedicalScreen"
-            component={HomeMedicalScreen}
-          />
-          <Drawer.Screen
-            name="ProfileNavigator"
-            options={{title: 'Perfil'}}
-            component={ProfileNavigator}
-          />
-          <Drawer.Screen
-            name="ParticipantsNavigator"
-            options={{title: 'Participantes'}}
-            component={ParticipantsNavigator}
-          />
-          <Drawer.Screen
-            name="MedicsNavigator"
-            options={{title: 'Staff Médico'}}
-            component={MedicsNavigator}
-          />
-          <Drawer.Screen
-            name="PlansNavigator"
-            options={{title: 'Planes Saludables'}}
-            component={PlansNavigator}
-          />
-          <Drawer.Screen
-            name="HabitsNavigator"
-            options={{title: 'Hábitos'}}
-            component={HabitsNavigator}
-          />
-        </>
+        <Drawer.Navigator drawerContent={props => <CustomDrawer {...props} />}>
+          {user?.role === 'ADMIN_ROLE' ? (
+            <>
+              <Drawer.Screen
+                name="HomeAdminScreen"
+                options={{title: 'Inicio'}}
+                component={HomeAdminScreen}
+              />
+              <Drawer.Screen
+                name="ProfileNavigator"
+                options={{title: 'Perfil'}}
+                component={ProfileNavigator}
+              />
+              <Drawer.Screen
+                name="ParticipantsNavigator"
+                options={{title: 'Participantes'}}
+                component={ParticipantsNavigator}
+              />
+              <Drawer.Screen
+                name="MedicsNavigator"
+                options={{title: 'Staff Médico'}}
+                component={MedicsNavigator}
+              />
+              <Drawer.Screen
+                name="PlansNavigator"
+                options={{title: 'Planes Saludables'}}
+                component={PlansNavigator}
+              />
+              <Drawer.Screen
+                name="HabitsNavigator"
+                options={{title: 'Hábitos'}}
+                component={HabitsNavigator}
+              />
+              <Drawer.Screen
+                name="CalendarNavigator"
+                options={{title: 'Calendario'}}
+                component={CalendarNavigator}
+              />
+            </>
+          ) : user?.role === 'USER_ROLE' ? (
+            <>
+              <Drawer.Screen name="HomeUserScreen" component={HomeUserScreen} />
+
+              <Drawer.Screen
+                name="ProfileNavigator"
+                options={{title: 'Perfil'}}
+                component={ProfileNavigator}
+              />
+              <Drawer.Screen
+                name="ParticipantsNavigator"
+                options={{title: 'Participantes'}}
+                component={ParticipantsNavigator}
+              />
+              <Drawer.Screen
+                name="MedicsNavigator"
+                options={{title: 'Staff Médico'}}
+                component={MedicsNavigator}
+              />
+              <Drawer.Screen
+                name="PlansNavigator"
+                options={{title: 'Planes Saludables'}}
+                component={PlansNavigator}
+              />
+              <Drawer.Screen
+                name="HabitsNavigator"
+                options={{title: 'Hábitos'}}
+                component={HabitsNavigator}
+              />
+              <Drawer.Screen
+                name="CalendarNavigator"
+                options={{title: 'Calendario'}}
+                component={CalendarNavigator}
+              />
+            </>
+          ) : (
+            <>
+              {/* <Stack.Screen name="HabitsNavigator" component={HabitsNavigator} /> */}
+              <Drawer.Screen
+                name="HomeMedicalScreen"
+                component={HomeMedicalScreen}
+              />
+              <Drawer.Screen
+                name="ProfileNavigator"
+                options={{title: 'Perfil'}}
+                component={ProfileNavigator}
+              />
+              <Drawer.Screen
+                name="ParticipantsNavigator"
+                options={{title: 'Participantes'}}
+                component={ParticipantsNavigator}
+              />
+              <Drawer.Screen
+                name="MedicsNavigator"
+                options={{title: 'Staff Médico'}}
+                component={MedicsNavigator}
+              />
+              <Drawer.Screen
+                name="PlansNavigator"
+                options={{title: 'Planes Saludables'}}
+                component={PlansNavigator}
+              />
+              <Drawer.Screen
+                name="HabitsNavigator"
+                options={{title: 'Hábitos'}}
+                component={HabitsNavigator}
+              />
+              <Drawer.Screen
+                name="CalendarNavigator"
+                options={{title: 'Calendario'}}
+                component={CalendarNavigator}
+              />
+            </>
+          )}
+        </Drawer.Navigator>
       )}
-    </Drawer.Navigator>
+    </>
   );
 };

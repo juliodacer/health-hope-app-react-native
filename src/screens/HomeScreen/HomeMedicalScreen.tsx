@@ -78,7 +78,7 @@ export const HomeMedicalScreen = ({navigation}: Props) => {
             borderColor: colors.primary,
           }}
           customIcon={colors.primary}
-          onPress={() => navigation.navigate('HabitsNavigator')}
+          onPress={() => navigation.navigate('CalendarNavigator')}
         />
         <IconCircleButon
           nameIcon="bar-chart-o"

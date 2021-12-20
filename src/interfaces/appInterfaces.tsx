@@ -28,6 +28,7 @@ export interface User {
   password: string;
   gender?: string,
   age?: number;
+  height?: number;
   weight?: number;
   birthDate?: string;
   cell?: string;
@@ -66,10 +67,10 @@ export interface Plan {
   name: string;
   description?: string;
   img?: string;
-  objective?: string;
-  startDate?: string;
-  finishDate?: string;
+  startDate?: Date;
+  finishDate?: Date;
   createAt?: string;
   status: boolean;
+  habitsArray: [];
   user?: string
 }

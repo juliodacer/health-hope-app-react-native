@@ -2,6 +2,7 @@ import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
 import { PlanScreen } from '../screens/PlanScreen/PlanScreen';
 import { PlansScreen } from '../screens/PlansScreen.tsx/PlansScreen';
+import { Habit } from '../interfaces/appInterfaces';
 
 export type PlansStackParams = {
     PlansScreen: undefined
@@ -9,10 +10,9 @@ export type PlansStackParams = {
         name?: string;
         description?: string;
         img?: string;
-        objective?: string;
-        startDate?: string;
-        finishDate?: string;
-        createAt?: string;
+        startDate?: Date;
+        finishDate?: Date;
+        habitsArray?: Habit[];
         status?: boolean;
         user?: string}
 }
@@ -40,6 +40,7 @@ export const PlansNavigator = () => {
              <Stack.Screen
                 name="PlanScreen"
                 component={PlanScreen}
+                options={{title: 'Detalle del Plan'}}
             />
         </Stack.Navigator>
     )

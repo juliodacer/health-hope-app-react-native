@@ -1,7 +1,6 @@
 import React from 'react';
 import {Text, TouchableOpacity} from 'react-native';
 import {styles} from './styles';
-import { Background } from '../Background/Background';
 
 interface ButtonProps {
   newStyle?: Object;
